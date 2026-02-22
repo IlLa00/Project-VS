@@ -28,7 +28,6 @@ namespace VS.Core
         {
             SetState(GameState.Playing);
         }
-
         void Update()
         {
             if (State == GameState.Playing)

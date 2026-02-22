@@ -4,9 +4,11 @@ using UnityEngine;
 using VS.Core;
 using VS.Data;
 using VS.Player;
+using VS.XP;
 
 namespace VS.Enemies
 {
+    [RequireComponent(typeof(CircleCollider2D))]
     public class EnemyBase : MonoBehaviour
     {
         // 전역 활성 적 리스트 — FindObjectsOfType 완전 대체
@@ -16,6 +18,8 @@ namespace VS.Enemies
 
         private EnemyData _data;
         private float _currentHp;
+        private float _effectiveSpeed;
+        private float _effectiveDamage;
         private SpriteRenderer _sr;
         private Transform _player;
         private PlayerStats _playerStats;
@@ -25,6 +29,10 @@ namespace VS.Enemies
         void Awake()
         {
             _sr = GetComponent<SpriteRenderer>();
+
+            // contactRadius를 콜라이더 크기에 동기화
+            var col = GetComponent<CircleCollider2D>();
+            col.radius = contactRadius;
         }
 
         void OnEnable()
@@ -43,10 +51,13 @@ namespace VS.Enemies
             ActiveEnemies.Remove(this);
         }
 
-        public void Init(EnemyData data, Action<EnemyBase> onDeathCallback)
+        public void Init(EnemyData data, Action<EnemyBase> onDeathCallback,
+                         float hpMult = 1f, float speedMult = 1f, float damageMult = 1f)
         {
             _data = data;
-            _currentHp = data.maxHp;
+            _currentHp = data.maxHp * hpMult;
+            _effectiveSpeed = data.moveSpeed * speedMult;
+            _effectiveDamage = data.contactDamage * damageMult;
             _onDeath = onDeathCallback;
 
             if (data.sprite != null)
@@ -69,14 +80,14 @@ namespace VS.Enemies
 
             // 플레이어 방향으로 직선 이동
             Vector2 dir = ((Vector2)_player.position - (Vector2)transform.position).normalized;
-            transform.position += (Vector3)(dir * _data.moveSpeed * Time.deltaTime);
+            transform.position += (Vector3)(dir * _effectiveSpeed * Time.deltaTime);
 
             if (dir.x != 0f)
                 _sr.flipX = dir.x < 0f;
 
             // 거리 기반 데미지 (PlayerStats iFrame이 중복 피해 방지)
             if (Vector2.Distance(transform.position, _player.position) < contactRadius)
-                _playerStats?.TakeDamage(_data.contactDamage);
+                _playerStats?.TakeDamage(_effectiveDamage);
         }
 
         public void TakeDamage(float amount)
@@ -89,7 +100,7 @@ namespace VS.Enemies
 
         private void Die()
         {
-            // TODO: XP 오브 드랍 (4주차)
+            XpOrbSpawner.Instance?.Spawn(transform.position, _data.xpDrop);
             _onDeath?.Invoke(this);
         }
     }
