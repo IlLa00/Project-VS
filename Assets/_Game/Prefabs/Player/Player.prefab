@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: -6311808542126936316}
   - component: {fileID: 6134166645272571615}
   - component: {fileID: -4357569223358207078}
+  - component: {fileID: 6793242066311950215}
+  - component: {fileID: 5409191396402238656}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -109,3 +111,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6793242066311950215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097895065556919965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df9b315671218843b584b043fa84097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 6041347326181517304, guid: 229a0ef6bab7eae4c9f42ee7d555da39, type: 3}
+  startWeapon: {fileID: 11400000, guid: 7ba00ce9ca78cd8458a0b681ec2854ab, type: 2}
+--- !u!114 &5409191396402238656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097895065556919965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f7b12debd82a041a0cc53457e3a6ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseXpToLevel: 50
+  xpScaleFactor: 1.4

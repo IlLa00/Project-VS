@@ -9,9 +9,12 @@ namespace VS.UI
     public class HUDController : MonoBehaviour
     {
         [SerializeField] private Slider hpSlider;
+        [SerializeField] private Slider xpSlider;
         [SerializeField] private TextMeshProUGUI timerText;
+        [SerializeField] private TextMeshProUGUI levelText;
 
         private PlayerStats _playerStats;
+        private PlayerXP _playerXP;
 
         void Start()
         {
@@ -21,12 +24,27 @@ namespace VS.UI
                 _playerStats.OnHpChanged += UpdateHpBar;
                 UpdateHpBar(_playerStats.CurrentHp, _playerStats.MaxHp);
             }
+
+            _playerXP = FindFirstObjectByType<PlayerXP>();
+            if (_playerXP != null)
+            {
+                _playerXP.OnXpChanged += UpdateXpBar;
+                _playerXP.OnLevelUp += UpdateLevelText;
+                UpdateXpBar(_playerXP.CurrentXP, _playerXP.XpToNextLevel);
+                UpdateLevelText(_playerXP.Level);
+            }
         }
 
         void OnDestroy()
         {
             if (_playerStats != null)
                 _playerStats.OnHpChanged -= UpdateHpBar;
+
+            if (_playerXP != null)
+            {
+                _playerXP.OnXpChanged -= UpdateXpBar;
+                _playerXP.OnLevelUp -= UpdateLevelText;
+            }
         }
 
         void Update()
@@ -40,6 +58,18 @@ namespace VS.UI
         {
             if (hpSlider != null)
                 hpSlider.value = current / max;
+        }
+
+        private void UpdateXpBar(float current, float max)
+        {
+            if (xpSlider != null)
+                xpSlider.value = max > 0f ? current / max : 0f;
+        }
+
+        private void UpdateLevelText(int level)
+        {
+            if (levelText != null)
+                levelText.text = $"Lv.{level}";
         }
     }
 }
