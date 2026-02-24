@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using VS.Core;
 using VS.Data;
@@ -21,59 +22,114 @@ namespace VS.Enemies
         [SerializeField] private float maxStatMultiplier = 6f;  // 최대 스탯 배율
         [SerializeField] private float rampDuration = 300f;     // 최대 난이도 도달 시간 (초)
 
+        [Header("엘리트 설정")]
+        [SerializeField] private EnemyData[] eliteTypes;        // 엘리트 EnemyData 배열
+        [SerializeField] [Range(0f, 1f)] private float eliteChance = 0.15f; // 스폰당 엘리트 대체 확률
+
+        [Header("보스 설정")]
+        [SerializeField] private EnemyData[] bossTypes;         // 보스 EnemyData 배열
+        [SerializeField] private float bossSpawnInterval = 180f;// 보스 등장 간격 (초, 기본 3분)
+
+        /// <summary>보스가 스폰될 때 발행된다. BossHPBarUI 등이 구독.</summary>
+        public static event Action<EnemyBase> OnBossSpawned;
+
         private ObjectPool<EnemyBase> _pool;
         private float _spawnTimer;
+        private float _bossTimer;
 
         void Start()
         {
             _pool = new ObjectPool<EnemyBase>(enemyPrefab, preloadCount, transform);
+            _bossTimer = bossSpawnInterval;
         }
 
         void Update()
         {
             if (GameManager.Instance?.State != GameState.Playing) return;
-            if (EnemyBase.ActiveEnemies.Count >= maxEnemies) return;
 
-            _spawnTimer -= Time.deltaTime;
-            if (_spawnTimer <= 0f)
+            // 일반/엘리트 스폰
+            if (EnemyBase.ActiveEnemies.Count < maxEnemies)
             {
-                float interval = GetCurrentInterval();
-                _spawnTimer = interval;
+                _spawnTimer -= Time.deltaTime;
+                if (_spawnTimer <= 0f)
+                {
+                    _spawnTimer = GetCurrentInterval();
+                    int spawnCount = GetSpawnCount();
+                    for (int i = 0; i < spawnCount; i++)
+                        SpawnNormalOrElite();
+                }
+            }
 
-                int spawnCount = GetSpawnCount();
-                for (int i = 0; i < spawnCount; i++)
-                    SpawnEnemy();
+            // 보스 스폰 타이머
+            if (bossTypes != null && bossTypes.Length > 0)
+            {
+                _bossTimer -= Time.deltaTime;
+                if (_bossTimer <= 0f)
+                {
+                    _bossTimer = bossSpawnInterval;
+                    TrySpawnBoss();
+                }
             }
         }
 
-        private void SpawnEnemy()
-        {
-            if (enemyTypes == null || enemyTypes.Length == 0) return;
+        // ── 일반 / 엘리트 ──────────────────────────────────────────
 
+        private void SpawnNormalOrElite()
+        {
+            // 엘리트 배열이 있고, 확률에 걸리면 엘리트 스폰
+            if (eliteTypes != null && eliteTypes.Length > 0 && UnityEngine.Random.value < eliteChance)
+            {
+                SpawnEnemy(eliteTypes[UnityEngine.Random.Range(0, eliteTypes.Length)]);
+                return;
+            }
+
+            if (enemyTypes == null || enemyTypes.Length == 0) return;
+            SpawnEnemy(PickNormalType(GetDifficultyT()));
+        }
+
+        private void SpawnEnemy(EnemyData data)
+        {
             float t = GetDifficultyT();
             float statMult = Mathf.Lerp(1f, maxStatMultiplier, t);
 
             EnemyBase enemy = _pool.Get();
-            EnemyData data = PickEnemyType(t);
             enemy.transform.position = GetSpawnPosition();
             enemy.Init(data, ReturnToPool,
                 hpMult: statMult,
-                speedMult: Mathf.Lerp(1f, 1.8f, t),   // 속도는 최대 1.8배 (너무 빠르면 불쾌)
+                speedMult: Mathf.Lerp(1f, 1.8f, t),
                 damageMult: statMult);
         }
 
-        // 생존 시간에 따라 강한 적 타입을 우선 선택
-        private EnemyData PickEnemyType(float t)
+        // 생존 시간에 따라 강한 일반 적 타입을 우선 선택
+        private EnemyData PickNormalType(float t)
         {
-            // 초반엔 약한 적, 시간이 지날수록 강한 적도 섞임
             int maxIndex = Mathf.Clamp(
                 Mathf.FloorToInt(t * enemyTypes.Length) + 1,
                 1, enemyTypes.Length);
-
-            return enemyTypes[Random.Range(0, maxIndex)];
+            return enemyTypes[UnityEngine.Random.Range(0, maxIndex)];
         }
 
-        // 후반에 한 번에 여러 마리 스폰
+        // ── 보스 ────────────────────────────────────────────────────
+
+        private void TrySpawnBoss()
+        {
+            // 이미 보스가 살아있으면 스킵
+            foreach (EnemyBase e in EnemyBase.ActiveEnemies)
+            {
+                if (e.EnemyType == EnemyType.Boss) return;
+            }
+
+            EnemyData bossData = bossTypes[UnityEngine.Random.Range(0, bossTypes.Length)];
+            EnemyBase boss = _pool.Get();
+            boss.transform.position = GetSpawnPosition();
+            // 보스는 난이도 배율 적용 없이 EnemyData 수치 그대로 사용
+            boss.Init(bossData, ReturnToPool);
+
+            OnBossSpawned?.Invoke(boss);
+        }
+
+        // ── 공통 유틸 ────────────────────────────────────────────────
+
         private int GetSpawnCount()
         {
             float time = GameManager.Instance?.SurvivalTime ?? 0f;
@@ -105,7 +161,7 @@ namespace VS.Enemies
                 ? Camera.main.transform.position
                 : Vector3.zero;
 
-            float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+            float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
             return new Vector3(
                 center.x + Mathf.Cos(angle) * spawnDistance,
                 center.y + Mathf.Sin(angle) * spawnDistance,

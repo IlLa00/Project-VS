@@ -8,8 +8,15 @@ namespace VS.UI
     public class LevelUpUI : MonoBehaviour
     {
         [SerializeField] private GameObject panel;
-        [SerializeField] private UpgradeCardUI[] cards; // 카드 3개
-        [SerializeField] private UpgradeData[] allUpgrades;
+        [SerializeField] private UpgradeCardUI[] cards; // 카드 슬롯 (Inspector에서 3개 연결)
+
+        private UpgradeDataBase[] _allUpgrades;
+
+        void Awake()
+        {
+            // Assets/_Game/Resources/Upgrades/ 폴더의 에셋을 자동으로 전부 로드
+            _allUpgrades = Resources.LoadAll<UpgradeDataBase>("Upgrades");
+        }
 
         void OnEnable()
         {
@@ -38,7 +45,7 @@ namespace VS.UI
         {
             panel.SetActive(true);
 
-            UpgradeData[] chosen = PickRandom(cards.Length);
+            UpgradeDataBase[] chosen = PickRandom(cards.Length);
             for (int i = 0; i < cards.Length; i++)
             {
                 if (i < chosen.Length)
@@ -54,46 +61,27 @@ namespace VS.UI
         }
 
         // Fisher-Yates shuffle로 중복 없이 count개 선택
-        private UpgradeData[] PickRandom(int count)
+        private UpgradeDataBase[] PickRandom(int count)
         {
-            UpgradeData[] pool = (UpgradeData[])allUpgrades.Clone();
+            UpgradeDataBase[] pool = (UpgradeDataBase[])_allUpgrades.Clone();
             for (int i = pool.Length - 1; i > 0; i--)
             {
                 int j = Random.Range(0, i + 1);
                 (pool[i], pool[j]) = (pool[j], pool[i]);
             }
             int take = Mathf.Min(count, pool.Length);
-            UpgradeData[] result = new UpgradeData[take];
+            UpgradeDataBase[] result = new UpgradeDataBase[take];
             for (int i = 0; i < take; i++) result[i] = pool[i];
             return result;
         }
 
-        private void OnCardSelected(UpgradeData upgrade)
+        private void OnCardSelected(UpgradeDataBase upgrade)
         {
-            ApplyUpgrade(upgrade);
+            PlayerController player = PlayerController.Instance;
+            if (player != null)
+                upgrade.Apply(player);
+
             GameManager.Instance?.ResumePlaying();
-        }
-
-        private void ApplyUpgrade(UpgradeData upgrade)
-        {
-            PlayerStats stats = PlayerController.Instance?.GetComponent<PlayerStats>();
-            if (stats == null) return;
-
-            switch (upgrade.upgradeType)
-            {
-                case UpgradeType.DamageUp:
-                    stats.AddDamageMultiplier(upgrade.value);
-                    break;
-                case UpgradeType.SpeedUp:
-                    stats.AddMoveSpeed(upgrade.value);
-                    break;
-                case UpgradeType.MaxHpUp:
-                    stats.AddMaxHp(upgrade.value);
-                    break;
-                case UpgradeType.HpRestore:
-                    stats.Heal(upgrade.value);
-                    break;
-            }
         }
     }
 }

@@ -390,10 +390,6 @@ MonoBehaviour:
   - {fileID: 1950887154}
   - {fileID: 1170986354}
   - {fileID: 1253393417}
-  allUpgrades:
-  - {fileID: 11400000, guid: 1918315eea22dff4fbf0bc4d0813121b, type: 2}
-  - {fileID: 11400000, guid: 36f1ce55d8462c14591c9bbfff8213d9, type: 2}
-  - {fileID: 11400000, guid: ebbd98829cc33f244b026ce6e5f43b5b, type: 2}
 --- !u!1 &102355079
 GameObject:
   m_ObjectHideFlags: 0
@@ -4123,9 +4119,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 91b3cd4e65006594f9d64175f179c0f7, type: 2}
   - {fileID: 11400000, guid: 702f3dfba27da0741b9acdff25dcc07d, type: 2}
   preloadCount: 30
-  spawnInterval: 1.5
   maxEnemies: 100
   spawnDistance: 12
+  initialInterval: 1.5
+  minInterval: 0.25
+  maxStatMultiplier: 6
+  rampDuration: 300
 --- !u!4 &2063523505
 Transform:
   m_ObjectHideFlags: 0

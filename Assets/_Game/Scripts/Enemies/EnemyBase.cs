@@ -18,6 +18,7 @@ namespace VS.Enemies
 
         private EnemyData _data;
         private float _currentHp;
+        private float _maxHp;           // 보스 HP바용
         private float _effectiveSpeed;
         private float _effectiveDamage;
         private SpriteRenderer _sr;
@@ -25,6 +26,15 @@ namespace VS.Enemies
         private PlayerStats _playerStats;
 
         private Action<EnemyBase> _onDeath;
+
+        /// <summary>HP가 변할 때마다 발행 (current, max). 보스 HP바가 구독.</summary>
+        public event Action<float, float> OnHpChanged;
+
+        /// <summary>사망 직전 발행. 보스 HP바 숨기기 등 UI 처리용.</summary>
+        public event Action OnDied;
+
+        public string EnemyName => _data?.enemyName;
+        public EnemyType EnemyType => _data?.enemyType ?? default;
 
         void Awake()
         {
@@ -55,10 +65,15 @@ namespace VS.Enemies
                          float hpMult = 1f, float speedMult = 1f, float damageMult = 1f)
         {
             _data = data;
-            _currentHp = data.maxHp * hpMult;
+            _maxHp = data.maxHp * hpMult;
+            _currentHp = _maxHp;
             _effectiveSpeed = data.moveSpeed * speedMult;
             _effectiveDamage = data.contactDamage * damageMult;
             _onDeath = onDeathCallback;
+
+            // 이전 구독자 정리 (풀 재사용 시 누적 방지)
+            OnHpChanged = null;
+            OnDied = null;
 
             if (data.sprite != null)
                 _sr.sprite = data.sprite;
@@ -93,13 +108,23 @@ namespace VS.Enemies
         public void TakeDamage(float amount)
         {
             if (_data == null) return;
-            _currentHp -= amount;
+            _currentHp = Mathf.Max(0f, _currentHp - amount);
+            OnHpChanged?.Invoke(_currentHp, _maxHp);
+
             if (_currentHp <= 0f)
                 Die();
         }
 
         private void Die()
         {
+            // 엘리트: 사망 시 플레이어에게 일시적 버프
+            if (_data.enemyType == EnemyType.Elite)
+            {
+                PlayerBuffManager.Instance?.ApplyBuff(
+                    _data.buffStatType, _data.buffValue, _data.buffDuration);
+            }
+
+            OnDied?.Invoke();
             XpOrbSpawner.Instance?.Spawn(transform.position, _data.xpDrop);
             _onDeath?.Invoke(this);
         }
