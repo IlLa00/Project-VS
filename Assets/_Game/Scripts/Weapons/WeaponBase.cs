@@ -6,7 +6,7 @@ using VS.Player;
 
 namespace VS.Weapons
 {
-    public class WeaponBase : MonoBehaviour
+    public class WeaponBase : MonoBehaviour, IUpgradableWeapon
     {
         [SerializeField] private Projectile projectilePrefab;
         [SerializeField] private WeaponData data;
@@ -14,6 +14,11 @@ namespace VS.Weapons
         private ObjectPool<Projectile> _pool;
         private float _fireTimer;
         private PlayerStats _playerStats;
+
+        // 인스턴스별 스탯 보너스 (WeaponData ScriptableObject를 직접 수정하지 않음)
+        private float _damageBonus;
+        private float _fireRateBonus;
+        private int   _pierceBonus;
 
         void Awake()
         {
@@ -42,11 +47,24 @@ namespace VS.Weapons
             if (GameManager.Instance?.State != GameState.Playing) return;
             if (data == null || _pool == null) return;
 
+            float effectiveFireRate = (data.fireRate + _fireRateBonus) * (_playerStats?.FireRateMultiplier ?? 1f);
             _fireTimer += Time.deltaTime;
-            if (_fireTimer >= 1f / data.fireRate)
+            if (_fireTimer >= 1f / effectiveFireRate)
             {
                 _fireTimer = 0f;
                 Fire();
+            }
+        }
+
+        /// <summary>IUpgradableWeapon 구현. 지원하지 않는 stat은 무시.</summary>
+        public void ApplyUpgrade(WeaponStatType stat, float value)
+        {
+            switch (stat)
+            {
+                case WeaponStatType.DamageUp:   _damageBonus    += value;       break;
+                case WeaponStatType.FireRateUp: _fireRateBonus  += value;       break;
+                case WeaponStatType.PierceUp:   _pierceBonus    += (int)value;  break;
+                // RotationSpeedUp, OrbRadiusUp 은 이 무기에 해당 없으므로 무시
             }
         }
 
@@ -58,18 +76,21 @@ namespace VS.Weapons
                 : Vector2.up;
 
             Projectile proj = _pool.Get();
+            proj.transform.SetParent(null);          // 월드 공간으로 분리 → 플레이어 이동에 끌려다니지 않음
             proj.transform.position = transform.position;
             proj.transform.localScale = Vector3.one * data.projectileScale;
 
             var sr = proj.GetComponent<SpriteRenderer>();
             if (sr != null) sr.color = data.projectileColor;
 
-            float finalDamage = data.damage * (_playerStats?.DamageMultiplier ?? 1f);
-            proj.Init(dir, data.projectileSpeed, finalDamage, data.projectileRange, data.pierceCount, ReturnProjectile);
+            float finalDamage = (data.damage + _damageBonus) * (_playerStats?.DamageMultiplier ?? 1f);
+            proj.Init(dir, data.projectileSpeed, finalDamage, data.projectileRange,
+                      data.pierceCount + _pierceBonus, ReturnProjectile);
         }
 
         private void ReturnProjectile(Projectile proj)
         {
+            proj.transform.SetParent(transform);     // 풀 반환 시 다시 자식으로
             _pool.Return(proj);
         }
 

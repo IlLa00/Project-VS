@@ -13,10 +13,10 @@ namespace VS.UI
         [SerializeField] private Image iconImage;
         [SerializeField] private Button button;
 
-        private UpgradeData _data;
-        private Action<UpgradeData> _onSelected;
+        private UpgradeDataBase _data;
+        private Action<UpgradeDataBase> _onSelected;
 
-        public void Setup(UpgradeData data, Action<UpgradeData> onSelected)
+        public void Setup(UpgradeDataBase data, Action<UpgradeDataBase> onSelected)
         {
             _data = data;
             _onSelected = onSelected;

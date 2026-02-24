@@ -9,6 +9,7 @@ namespace VS.Player
         [SerializeField] private float maxHp = 100f;
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float damageMultiplier = 1f;
+        [SerializeField] private float fireRateMultiplier = 1f;
 
         [Header("무적 시간")]
         [SerializeField] private float iFrameDuration = 0.5f;
@@ -17,6 +18,7 @@ namespace VS.Player
         public float CurrentHp { get; private set; }
         public float MoveSpeed => moveSpeed;
         public float DamageMultiplier => damageMultiplier;
+        public float FireRateMultiplier => fireRateMultiplier;
         public bool IsAlive => CurrentHp > 0f;
 
         // 피격 무적 타이머
@@ -59,6 +61,7 @@ namespace VS.Player
         // 무기 업그레이드로 스탯 증가 시 사용
         public void AddMoveSpeed(float delta) => moveSpeed += delta;
         public void AddDamageMultiplier(float delta) => damageMultiplier += delta;
+        public void AddFireRateMultiplier(float delta) => fireRateMultiplier += delta;
         public void AddMaxHp(float delta)
         {
             maxHp += delta;
