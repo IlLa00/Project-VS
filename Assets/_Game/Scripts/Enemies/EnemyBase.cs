@@ -25,6 +25,13 @@ namespace VS.Enemies
         private Transform _player;
         private PlayerStats _playerStats;
 
+        private float _animTimer;
+        private int _animFrame;
+
+        private bool _isDying;
+        private float _deathAnimTimer;
+        private int _deathAnimFrame;
+
         private Action<EnemyBase> _onDeath;
 
         /// <summary>HP가 변할 때마다 발행 (current, max). 보스 HP바가 구독.</summary>
@@ -75,7 +82,15 @@ namespace VS.Enemies
             OnHpChanged = null;
             OnDied = null;
 
-            if (data.sprite != null)
+            _animTimer = 0f;
+            _animFrame = 0;
+            _isDying = false;
+            _deathAnimTimer = 0f;
+            _deathAnimFrame = 0;
+
+            if (data.walkFrames != null && data.walkFrames.Length > 0)
+                _sr.sprite = data.walkFrames[0];
+            else if (data.sprite != null)
                 _sr.sprite = data.sprite;
             _sr.color = data.color;
         }
@@ -84,6 +99,25 @@ namespace VS.Enemies
         {
             if (_data == null) return;
             if (GameManager.Instance?.State != GameState.Playing) return;
+
+            // 사망 애니메이션 재생 중 — 이동/공격 로직 전부 스킵
+            if (_isDying)
+            {
+                _deathAnimTimer += Time.deltaTime;
+                float deathFrameDuration = 1f / _data.deathFrameRate;
+                if (_deathAnimTimer >= deathFrameDuration)
+                {
+                    _deathAnimTimer -= deathFrameDuration;
+                    _deathAnimFrame++;
+                    if (_deathAnimFrame >= _data.deathFrames.Length)
+                    {
+                        Die();
+                        return;
+                    }
+                    _sr.sprite = _data.deathFrames[_deathAnimFrame];
+                }
+                return;
+            }
 
             if (_player == null)
             {
@@ -100,6 +134,19 @@ namespace VS.Enemies
             if (dir.x != 0f)
                 _sr.flipX = dir.x < 0f;
 
+            // 걷기 애니메이션 (walkFrames가 2개 이상일 때만 작동)
+            if (_data.walkFrames != null && _data.walkFrames.Length > 1)
+            {
+                _animTimer += Time.deltaTime;
+                float frameDuration = 1f / _data.animFrameRate;
+                if (_animTimer >= frameDuration)
+                {
+                    _animTimer -= frameDuration;
+                    _animFrame = (_animFrame + 1) % _data.walkFrames.Length;
+                    _sr.sprite = _data.walkFrames[_animFrame];
+                }
+            }
+
             // 거리 기반 데미지 (PlayerStats iFrame이 중복 피해 방지)
             if (Vector2.Distance(transform.position, _player.position) < contactRadius)
                 _playerStats?.TakeDamage(_effectiveDamage);
@@ -107,12 +154,25 @@ namespace VS.Enemies
 
         public void TakeDamage(float amount)
         {
-            if (_data == null) return;
+            if (_data == null || _isDying) return;
             _currentHp = Mathf.Max(0f, _currentHp - amount);
             OnHpChanged?.Invoke(_currentHp, _maxHp);
 
             if (_currentHp <= 0f)
-                Die();
+            {
+                if (_data.deathFrames != null && _data.deathFrames.Length > 0)
+                    StartDeathAnim();
+                else
+                    Die();
+            }
+        }
+
+        private void StartDeathAnim()
+        {
+            _isDying = true;
+            _deathAnimTimer = 0f;
+            _deathAnimFrame = 0;
+            _sr.sprite = _data.deathFrames[0];
         }
 
         private void Die()

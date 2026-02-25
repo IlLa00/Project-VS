@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using VS.Core;
 using VS.Player;
+using VS.Weapons;
 
 namespace VS.UI
 {
@@ -10,11 +11,13 @@ namespace VS.UI
     {
         [SerializeField] private Slider hpSlider;
         [SerializeField] private Slider xpSlider;
+        [SerializeField] private Slider cooldownSlider;
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI levelText;
 
         private PlayerStats _playerStats;
         private PlayerXP _playerXP;
+        private WeaponBase _weaponBase;
 
         void Start()
         {
@@ -33,6 +36,9 @@ namespace VS.UI
                 UpdateXpBar(_playerXP.CurrentXP, _playerXP.XpToNextLevel);
                 UpdateLevelText(_playerXP.Level);
             }
+
+            if (PlayerController.Instance != null)
+                _weaponBase = PlayerController.Instance.GetComponentInChildren<WeaponBase>();
         }
 
         void OnDestroy()
@@ -52,6 +58,9 @@ namespace VS.UI
             if (timerText != null && GameManager.Instance != null &&
                 GameManager.Instance.State == GameState.Playing)
                 timerText.text = GameManager.Instance.GetFormattedTime();
+
+            if (cooldownSlider != null && _weaponBase != null)
+                cooldownSlider.value = _weaponBase.CooldownProgress;
         }
 
         private void UpdateHpBar(float current, float max)

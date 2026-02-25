@@ -9,8 +9,6 @@ namespace VS.Core
     /// </summary>
     public class CameraFollow : MonoBehaviour
     {
-        [SerializeField] private float followSpeed = 8f;
-
         private Transform _target;
 
         void LateUpdate()
@@ -24,7 +22,7 @@ namespace VS.Core
             }
 
             Vector3 goal = new Vector3(_target.position.x, _target.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, goal, followSpeed * Time.deltaTime);
+            transform.position = goal;
         }
     }
 }

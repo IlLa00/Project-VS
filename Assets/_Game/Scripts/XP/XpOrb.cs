@@ -13,9 +13,7 @@ namespace VS.XP
         private Transform _player;
         private PlayerXP _playerXP;
 
-        private const float ATTRACT_RADIUS = 3f;
-        private const float ATTRACT_SPEED = 10f;
-        private const float COLLECT_SQR_RADIUS = 0.3f * 0.3f;
+        private const float COLLECT_SQR_RADIUS = 0.5f * 0.5f;
 
         void OnEnable()
         {
@@ -38,21 +36,13 @@ namespace VS.XP
             if (GameManager.Instance?.State != GameState.Playing) return;
             if (_player == null) return;
 
-            Vector2 toPlayer = (Vector2)_player.position - (Vector2)transform.position;
-            float sqrDist = toPlayer.sqrMagnitude;
+            float sqrDist = ((Vector2)_player.position - (Vector2)transform.position).sqrMagnitude;
 
-            // 흡수 범위에 도달하면 XP 지급 후 풀 반환
+            // 플레이어가 직접 닿으면 XP 지급 후 풀 반환
             if (sqrDist <= COLLECT_SQR_RADIUS)
             {
                 _playerXP?.AddXP(_xpAmount);
                 _returnToPool?.Invoke(this);
-                return;
-            }
-
-            // 인력 범위 안에 있으면 플레이어 방향으로 이동
-            if (sqrDist <= ATTRACT_RADIUS * ATTRACT_RADIUS)
-            {
-                transform.position += (Vector3)(toPlayer.normalized * ATTRACT_SPEED * Time.deltaTime);
             }
         }
     }

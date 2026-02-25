@@ -4,7 +4,6 @@ namespace VS.Data
 {
     public enum EnemyType { Normal, Elite, Boss }
 
-    /// <summary>엘리트 사망 버프에 사용하는 스탯 종류</summary>
     public enum BuffStatType { DamageUp, SpeedUp, FireRateUp }
 
     [CreateAssetMenu(fileName = "EnemyData", menuName = "VS/EnemyData")]
@@ -20,9 +19,19 @@ namespace VS.Data
         public Sprite sprite;
         public Color color = Color.white;
 
+        [Header("걷기 애니메이션")]
+        public Sprite[] walkFrames;
+        [Range(1f, 24f)]
+        public float animFrameRate = 8f;
+
+        [Header("사망 애니메이션")]
+        public Sprite[] deathFrames;
+        [Range(1f, 24f)]
+        public float deathFrameRate = 8f;
+
         [Header("엘리트 전용 — 사망 시 플레이어 버프")]
         public BuffStatType buffStatType;
-        public float buffValue;    // 버프 수치 (예: 이동속도 +2)
-        public float buffDuration; // 지속 시간 (초)
+        public float buffValue;    
+        public float buffDuration; 
     }
 }
