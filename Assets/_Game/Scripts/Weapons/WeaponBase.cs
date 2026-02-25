@@ -42,6 +42,16 @@ namespace VS.Weapons
             _pool = new ObjectPool<Projectile>(projectilePrefab, 20, transform);
         }
 
+        public float CooldownProgress
+        {
+            get
+            {
+                if (data == null) return 0f;
+                float interval = 1f / ((data.fireRate + _fireRateBonus) * (_playerStats?.FireRateMultiplier ?? 1f));
+                return Mathf.Clamp01(_fireTimer / interval);
+            }
+        }
+
         void Update()
         {
             if (GameManager.Instance?.State != GameState.Playing) return;

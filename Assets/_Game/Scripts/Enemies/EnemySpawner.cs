@@ -72,7 +72,6 @@ namespace VS.Enemies
             }
         }
 
-        // ── 일반 / 엘리트 ──────────────────────────────────────────
 
         private void SpawnNormalOrElite()
         {
@@ -109,11 +108,8 @@ namespace VS.Enemies
             return enemyTypes[UnityEngine.Random.Range(0, maxIndex)];
         }
 
-        // ── 보스 ────────────────────────────────────────────────────
-
         private void TrySpawnBoss()
         {
-            // 이미 보스가 살아있으면 스킵
             foreach (EnemyBase e in EnemyBase.ActiveEnemies)
             {
                 if (e.EnemyType == EnemyType.Boss) return;
@@ -122,13 +118,11 @@ namespace VS.Enemies
             EnemyData bossData = bossTypes[UnityEngine.Random.Range(0, bossTypes.Length)];
             EnemyBase boss = _pool.Get();
             boss.transform.position = GetSpawnPosition();
-            // 보스는 난이도 배율 적용 없이 EnemyData 수치 그대로 사용
+
             boss.Init(bossData, ReturnToPool);
 
             OnBossSpawned?.Invoke(boss);
         }
-
-        // ── 공통 유틸 ────────────────────────────────────────────────
 
         private int GetSpawnCount()
         {
@@ -143,7 +137,6 @@ namespace VS.Enemies
             return Mathf.Lerp(initialInterval, minInterval, GetDifficultyT());
         }
 
-        // 0(초반) ~ 1(최대 난이도)
         private float GetDifficultyT()
         {
             float time = GameManager.Instance?.SurvivalTime ?? 0f;

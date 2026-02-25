@@ -13,9 +13,23 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: 
   enemyName: Enemy
+  enemyType: 0
   maxHp: 10
   moveSpeed: 2
   contactDamage: 10
   xpDrop: 5
   sprite: {fileID: 0}
   color: {r: 1, g: 1, b: 1, a: 1}
+  walkFrames:
+  - {fileID: -5845585396382067991, guid: 3e624fd8e75f4ad4197017e941e701a6, type: 3}
+  - {fileID: -5845585396382067992, guid: 3e624fd8e75f4ad4197017e941e701a6, type: 3}
+  - {fileID: -5845585396382067993, guid: 3e624fd8e75f4ad4197017e941e701a6, type: 3}
+  animFrameRate: 8
+  deathFrames:
+  - {fileID: -5845585396382067994, guid: 3e624fd8e75f4ad4197017e941e701a6, type: 3}
+  - {fileID: -5845585396382067995, guid: 3e624fd8e75f4ad4197017e941e701a6, type: 3}
+  - {fileID: -5845585396382067996, guid: 3e624fd8e75f4ad4197017e941e701a6, type: 3}
+  deathFrameRate: 8
+  buffStatType: 0
+  buffValue: 0
+  buffDuration: 0
