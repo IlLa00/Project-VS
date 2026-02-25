@@ -24,7 +24,7 @@ namespace VS.Enemies
 
         [Header("엘리트 설정")]
         [SerializeField] private EnemyData[] eliteTypes;        // 엘리트 EnemyData 배열
-        [SerializeField] [Range(0f, 1f)] private float eliteChance = 0.15f; // 스폰당 엘리트 대체 확률
+[SerializeField] private float eliteSpawnInterval = 60f; // 엘리트 정기 스폰 간격 (초, 기본 1분)
 
         [Header("보스 설정")]
         [SerializeField] private EnemyData[] bossTypes;         // 보스 EnemyData 배열
@@ -36,11 +36,13 @@ namespace VS.Enemies
         private ObjectPool<EnemyBase> _pool;
         private float _spawnTimer;
         private float _bossTimer;
+        private float _eliteTimer;
 
         void Start()
         {
             _pool = new ObjectPool<EnemyBase>(enemyPrefab, preloadCount, transform);
             _bossTimer = bossSpawnInterval;
+            _eliteTimer = eliteSpawnInterval;
         }
 
         void Update()
@@ -60,6 +62,17 @@ namespace VS.Enemies
                 }
             }
 
+            // 엘리트 정기 스폰 타이머 (1분마다)
+            if (eliteTypes != null && eliteTypes.Length > 0)
+            {
+                _eliteTimer -= Time.deltaTime;
+                if (_eliteTimer <= 0f)
+                {
+                    _eliteTimer = eliteSpawnInterval;
+                    SpawnEnemy(eliteTypes[UnityEngine.Random.Range(0, eliteTypes.Length)]);
+                }
+            }
+
             // 보스 스폰 타이머
             if (bossTypes != null && bossTypes.Length > 0)
             {
@@ -75,13 +88,6 @@ namespace VS.Enemies
 
         private void SpawnNormalOrElite()
         {
-            // 엘리트 배열이 있고, 확률에 걸리면 엘리트 스폰
-            if (eliteTypes != null && eliteTypes.Length > 0 && UnityEngine.Random.value < eliteChance)
-            {
-                SpawnEnemy(eliteTypes[UnityEngine.Random.Range(0, eliteTypes.Length)]);
-                return;
-            }
-
             if (enemyTypes == null || enemyTypes.Length == 0) return;
             SpawnEnemy(PickNormalType(GetDifficultyT()));
         }

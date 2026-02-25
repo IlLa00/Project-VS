@@ -16,5 +16,8 @@ namespace VS.Data
 
         /// <summary>카드 선택 시 호출. 플레이어에게 효과를 적용한다.</summary>
         public abstract void Apply(PlayerController player);
+
+        /// <summary>이 카드가 현재 선택지에 표시될 수 있는지 여부. 만렙 무기 카드 등을 걸러낸다.</summary>
+        public virtual bool IsApplicable(PlayerController player) => true;
     }
 }

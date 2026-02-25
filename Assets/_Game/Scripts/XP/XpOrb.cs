@@ -42,6 +42,7 @@ namespace VS.XP
             if (sqrDist <= COLLECT_SQR_RADIUS)
             {
                 _playerXP?.AddXP(_xpAmount);
+                SoundManager.Instance?.Play(SoundType.XpCollect);
                 _returnToPool?.Invoke(this);
             }
         }
