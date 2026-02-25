@@ -157,6 +157,7 @@ namespace VS.Enemies
             if (_data == null || _isDying) return;
             _currentHp = Mathf.Max(0f, _currentHp - amount);
             OnHpChanged?.Invoke(_currentHp, _maxHp);
+            SoundManager.Instance?.Play(SoundType.EnemyHit);
 
             if (_currentHp <= 0f)
             {
@@ -177,6 +178,8 @@ namespace VS.Enemies
 
         private void Die()
         {
+            SoundManager.Instance?.Play(SoundType.EnemyDie);
+
             // 엘리트: 사망 시 플레이어에게 일시적 버프
             if (_data.enemyType == EnemyType.Elite)
             {

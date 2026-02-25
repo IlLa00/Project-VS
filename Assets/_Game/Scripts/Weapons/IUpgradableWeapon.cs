@@ -9,6 +9,8 @@ namespace VS.Weapons
     /// </summary>
     public interface IUpgradableWeapon
     {
+        int UpgradeLevel { get; }
+        bool CanUpgrade { get; }   // UpgradeLevel < MAX_UPGRADE (5)
         void ApplyUpgrade(WeaponStatType stat, float value);
     }
 }

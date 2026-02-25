@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:assetstore.unity.com)"
+      "WebFetch(domain:assetstore.unity.com)",
+      "Bash(grep:2)",
+      "Bash(claude:2)"
     ]
   }
 }

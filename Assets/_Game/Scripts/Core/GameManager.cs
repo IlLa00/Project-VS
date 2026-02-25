@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace VS.Core
 {
-    public enum GameState { Menu, Playing, LevelUp, GameOver }
+    public enum GameState { Menu, Playing, LevelUp, GameOver, Paused }
 
     public class GameManager : MonoBehaviour
     {
@@ -38,8 +38,8 @@ namespace VS.Core
         {
             State = newState;
 
-            // LevelUp 혹은 GameOver 상태에서는 시간 정지
-            Time.timeScale = (newState == GameState.LevelUp || newState == GameState.GameOver) ? 0f : 1f;
+            // LevelUp, GameOver, Paused 상태에서는 시간 정지
+            Time.timeScale = (newState == GameState.LevelUp || newState == GameState.GameOver || newState == GameState.Paused) ? 0f : 1f;
 
             OnStateChanged?.Invoke(newState);
         }
@@ -63,6 +63,14 @@ namespace VS.Core
         public void ResumePlaying()
         {
             SetState(GameState.Playing);
+        }
+
+        public void TogglePause()
+        {
+            if (State == GameState.Playing)
+                SetState(GameState.Paused);
+            else if (State == GameState.Paused)
+                SetState(GameState.Playing);
         }
 
         // ex. "02:35"

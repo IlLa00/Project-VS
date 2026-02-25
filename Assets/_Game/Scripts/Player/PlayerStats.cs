@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VS.Core;
 
 namespace VS.Player
 {
@@ -46,6 +47,7 @@ namespace VS.Player
             CurrentHp = Mathf.Max(0f, CurrentHp - amount);
             _iFrameTimer = iFrameDuration;
             OnHpChanged?.Invoke(CurrentHp, maxHp);
+            SoundManager.Instance?.Play(SoundType.PlayerHurt);
 
             if (CurrentHp <= 0f)
                 OnDeath?.Invoke();

@@ -14,7 +14,6 @@ namespace VS.UI
 
         void Awake()
         {
-            // Assets/_Game/Resources/Upgrades/ 폴더의 에셋을 자동으로 전부 로드
             _allUpgrades = Resources.LoadAll<UpgradeDataBase>("Upgrades");
         }
 
@@ -45,7 +44,13 @@ namespace VS.UI
         {
             panel.SetActive(true);
 
-            UpgradeDataBase[] chosen = PickRandom(cards.Length);
+            PlayerController player = PlayerController.Instance;
+            var applicable = new System.Collections.Generic.List<UpgradeDataBase>();
+            foreach (var u in _allUpgrades)
+                if (u.IsApplicable(player))
+                    applicable.Add(u);
+
+            UpgradeDataBase[] chosen = PickRandom(applicable.ToArray(), cards.Length);
             for (int i = 0; i < cards.Length; i++)
             {
                 if (i < chosen.Length)
@@ -60,10 +65,9 @@ namespace VS.UI
             }
         }
 
-        // Fisher-Yates shuffle로 중복 없이 count개 선택
-        private UpgradeDataBase[] PickRandom(int count)
+        private UpgradeDataBase[] PickRandom(UpgradeDataBase[] pool, int count)
         {
-            UpgradeDataBase[] pool = (UpgradeDataBase[])_allUpgrades.Clone();
+            pool = (UpgradeDataBase[])pool.Clone();
             for (int i = pool.Length - 1; i > 0; i--)
             {
                 int j = Random.Range(0, i + 1);

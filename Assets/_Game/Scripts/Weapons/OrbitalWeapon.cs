@@ -6,19 +6,15 @@ using VS.Enemies;
 
 namespace VS.Weapons
 {
-    /// <summary>
-    /// 플레이어 주변을 회전하며 닿는 적에게 데미지를 주는 무기.
-    /// 레벨업 선택지에서 획득하며, 중복 선택 시 오브 개수가 증가한다.
-    /// </summary>
-    public class OrbitalWeapon : MonoBehaviour, IStackableWeapon, IUpgradableWeapon
+    public class OrbitalWeapon : MonoBehaviour, IUpgradableWeapon
     {
         [Header("회전 설정")]
         [SerializeField] private float orbitRadius = 2f;
-        [SerializeField] private float rotationSpeed = 180f; // 도/초
+        [SerializeField] private float rotationSpeed = 180f; 
 
         [Header("피해 설정")]
         [SerializeField] private float damage = 15f;
-        [SerializeField] private float hitInterval = 0.5f; // 같은 적 재피격 간격(초)
+        [SerializeField] private float hitInterval = 0.5f; 
 
         [Header("오브 외형")]
         [SerializeField] private float orbSize = 0.25f;
@@ -28,12 +24,19 @@ namespace VS.Weapons
         public float Damage => damage;
         public float HitInterval => hitInterval;
 
+        private const int MAX_UPGRADE = 5;
+        private const float MAX_ROTATION_SPEED = 900f;
+        private int _upgradeLevel;
+
+        public int UpgradeLevel => _upgradeLevel;
+        public bool CanUpgrade => _upgradeLevel < MAX_UPGRADE;
+
         private readonly List<Transform> _orbs = new List<Transform>();
         private float _angle;
 
         void Awake()
         {
-            AddOrb(); // 기본 1개
+            AddOrb(); 
         }
 
         void Update()
@@ -44,22 +47,15 @@ namespace VS.Weapons
             RefreshOrbPositions();
         }
 
-        /// <summary>IStackableWeapon 구현 — 카드 중복 선택 시 오브 1개 추가.</summary>
-        public void AddStack() => AddOrb();
-
-        /// <summary>IUpgradableWeapon 구현. 지원하지 않는 stat은 무시.</summary>
         public void ApplyUpgrade(WeaponStatType stat, float value)
         {
-            switch (stat)
-            {
-                case WeaponStatType.DamageUp:        damage        += value; break;
-                case WeaponStatType.RotationSpeedUp: rotationSpeed += value; break;
-                case WeaponStatType.OrbRadiusUp:     orbitRadius   += value; break;
-                // FireRateUp, PierceUp 은 이 무기에 해당 없으므로 무시
-            }
+            if (!CanUpgrade) return;
+            _upgradeLevel++;
+            AddOrb();
+            if (_upgradeLevel >= MAX_UPGRADE)
+                rotationSpeed = MAX_ROTATION_SPEED;
         }
 
-        /// <summary>오브를 1개 추가한다.</summary>
         public void AddOrb()
         {
             var go = new GameObject($"Orb_{_orbs.Count}");
@@ -72,7 +68,7 @@ namespace VS.Weapons
 
             var col = go.AddComponent<CircleCollider2D>();
             col.isTrigger = true;
-            col.radius = 0.5f; // localScale이 실제 크기를 결정
+            col.radius = 0.5f; 
 
             var hitbox = go.AddComponent<OrbHitbox>();
             hitbox.Init(this);
@@ -83,7 +79,9 @@ namespace VS.Weapons
 
         private void RefreshOrbPositions()
         {
-            if (_orbs.Count == 0) return;
+            if (_orbs.Count == 0) 
+                return;
+
             float step = 360f / _orbs.Count;
             for (int i = 0; i < _orbs.Count; i++)
             {
@@ -101,7 +99,6 @@ namespace VS.Weapons
         }
     }
 
-    /// <summary>오브 개별 충돌 처리. OrbitalWeapon이 생성하는 내부 컴포넌트.</summary>
     class OrbHitbox : MonoBehaviour
     {
         private OrbitalWeapon _weapon;

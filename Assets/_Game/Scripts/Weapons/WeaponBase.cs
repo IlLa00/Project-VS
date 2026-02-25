@@ -20,6 +20,12 @@ namespace VS.Weapons
         private float _fireRateBonus;
         private int   _pierceBonus;
 
+        private const int MAX_UPGRADE = 5;
+        private int _upgradeLevel;
+
+        public int UpgradeLevel => _upgradeLevel;
+        public bool CanUpgrade => _upgradeLevel < MAX_UPGRADE;
+
         void Awake()
         {
             _playerStats = GetComponentInParent<PlayerStats>();
@@ -66,9 +72,11 @@ namespace VS.Weapons
             }
         }
 
-        /// <summary>IUpgradableWeapon 구현. 지원하지 않는 stat은 무시.</summary>
+        /// <summary>IUpgradableWeapon 구현. 지원하지 않는 stat은 무시. 5강 초과 시 적용 안 됨.</summary>
         public void ApplyUpgrade(WeaponStatType stat, float value)
         {
+            if (!CanUpgrade) return;
+            _upgradeLevel++;
             switch (stat)
             {
                 case WeaponStatType.DamageUp:   _damageBonus    += value;       break;
@@ -80,6 +88,7 @@ namespace VS.Weapons
 
         private void Fire()
         {
+            SoundManager.Instance?.Play(SoundType.Shoot);
             EnemyBase target = GetNearestEnemy();
             Vector2 dir = target != null
                 ? ((Vector2)target.transform.position - (Vector2)transform.position).normalized
