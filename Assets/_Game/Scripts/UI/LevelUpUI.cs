@@ -75,7 +75,10 @@ namespace VS.UI
             }
             int take = Mathf.Min(count, pool.Length);
             UpgradeDataBase[] result = new UpgradeDataBase[take];
-            for (int i = 0; i < take; i++) result[i] = pool[i];
+
+            for (int i = 0; i < take; i++) 
+                result[i] = pool[i];
+                
             return result;
         }
 

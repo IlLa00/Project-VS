@@ -40,6 +40,9 @@ namespace VS.Enemies
         /// <summary>사망 직전 발행. 보스 HP바 숨기기 등 UI 처리용.</summary>
         public event Action OnDied;
 
+        /// <summary>어떤 적이든 사망 시 발행. KillCountManager가 구독.</summary>
+        public static event Action OnAnyEnemyDied;
+
         public string EnemyName => _data?.enemyName;
         public EnemyType EnemyType => _data?.enemyType ?? default;
 
@@ -188,6 +191,7 @@ namespace VS.Enemies
             }
 
             OnDied?.Invoke();
+            OnAnyEnemyDied?.Invoke();
             XpOrbSpawner.Instance?.Spawn(transform.position, _data.xpDrop);
             _onDeath?.Invoke(this);
         }

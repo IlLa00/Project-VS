@@ -10,6 +10,7 @@ namespace VS.UI
     {
         [SerializeField] private GameObject panel;
         [SerializeField] private TextMeshProUGUI survivalTimeText;
+        [SerializeField] private TextMeshProUGUI killCountText;
         [SerializeField] private Button restartButton;
 
         void OnEnable()
@@ -41,6 +42,9 @@ namespace VS.UI
             if (survivalTimeText != null && GameManager.Instance != null)
                 survivalTimeText.text = $"생존 시간\n{GameManager.Instance.GetFormattedTime()}";
 
+            if (killCountText != null && KillCountManager.Instance != null)
+                killCountText.text = $"처치 수\n{KillCountManager.Instance.KillCount}";
+
             // 최고 기록 저장
             if (GameManager.Instance != null)
             {
@@ -51,6 +55,9 @@ namespace VS.UI
                     PlayerPrefs.Save();
                 }
             }
+
+            if (KillCountManager.Instance != null)
+                KillCountManager.Instance.SaveBestKillCount();
         }
 
         private void OnRestartClicked()
