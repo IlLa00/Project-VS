@@ -21,6 +21,9 @@ namespace VS.Weapons
         private readonly HashSet<EnemyBase> _hitEnemies = new HashSet<EnemyBase>();
         private bool _isDead;
         private Rigidbody2D _rb;
+        private SpriteRenderer _sr;
+
+        private static Sprite _projectileSprite;
 
         void Awake()
         {
@@ -43,6 +46,9 @@ namespace VS.Weapons
             _startPos = _rb.position;
             _isDead = false;
             _hitEnemies.Clear();
+
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 45f;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
         void FixedUpdate()

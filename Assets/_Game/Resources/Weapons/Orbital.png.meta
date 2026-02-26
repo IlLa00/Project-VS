@@ -1,0 +1,1352 @@
+fileFormatVersion: 2
+guid: abaeeb17ebbb95c4bb240e04b2aefde3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8035846199741911483
+    second: Orbital_0
+  - first:
+      213: -1577398450742877490
+    second: Orbital_1
+  - first:
+      213: 210518165541564265
+    second: Orbital_2
+  - first:
+      213: -5476082529439368195
+    second: Orbital_3
+  - first:
+      213: -3155702237307821166
+    second: Orbital_4
+  - first:
+      213: 8820261074826304144
+    second: Orbital_5
+  - first:
+      213: 1586986844713196204
+    second: Orbital_6
+  - first:
+      213: 5126052188687875135
+    second: Orbital_7
+  - first:
+      213: 5978326015172269454
+    second: Orbital_8
+  - first:
+      213: -79935857319383189
+    second: Orbital_9
+  - first:
+      213: 7206395695408633551
+    second: Orbital_10
+  - first:
+      213: -123209483653409716
+    second: Orbital_11
+  - first:
+      213: 4851574761994704592
+    second: Orbital_12
+  - first:
+      213: 5902183147524777598
+    second: Orbital_13
+  - first:
+      213: 4951326165930791226
+    second: Orbital_14
+  - first:
+      213: 249908032379127887
+    second: Orbital_15
+  - first:
+      213: 4463404443345663164
+    second: Orbital_16
+  - first:
+      213: -6174761940227780318
+    second: Orbital_17
+  - first:
+      213: 4079702968601314773
+    second: Orbital_18
+  - first:
+      213: 8864793883881839540
+    second: Orbital_19
+  - first:
+      213: -7251954651137480710
+    second: Orbital_20
+  - first:
+      213: -3625095787903640770
+    second: Orbital_21
+  - first:
+      213: 164959904323385190
+    second: Orbital_22
+  - first:
+      213: 2951888612550591576
+    second: Orbital_23
+  - first:
+      213: 3252261850934520811
+    second: Orbital_24
+  - first:
+      213: -4843157461543435805
+    second: Orbital_25
+  - first:
+      213: 5488961943340492873
+    second: Orbital_26
+  - first:
+      213: -4302958196865846349
+    second: Orbital_27
+  - first:
+      213: -8144952855238803431
+    second: Orbital_28
+  - first:
+      213: -5022519742798018658
+    second: Orbital_29
+  - first:
+      213: -4923604943717910065
+    second: Orbital_30
+  - first:
+      213: -4144852357876825564
+    second: Orbital_31
+  - first:
+      213: -78887071883141864
+    second: Orbital_32
+  - first:
+      213: 2545156031329238824
+    second: Orbital_33
+  - first:
+      213: -419491395931518916
+    second: Orbital_34
+  - first:
+      213: -6710437692922982737
+    second: Orbital_35
+  - first:
+      213: -4972986575257564305
+    second: Orbital_36
+  - first:
+      213: 3322565240042228659
+    second: Orbital_37
+  - first:
+      213: 83284591972159156
+    second: Orbital_38
+  - first:
+      213: -5997533404325275350
+    second: Orbital_39
+  - first:
+      213: 3012803475940302097
+    second: Orbital_40
+  - first:
+      213: -308584787717246847
+    second: Orbital_41
+  - first:
+      213: -8557717049177888937
+    second: Orbital_42
+  - first:
+      213: -6056646512014562372
+    second: Orbital_43
+  - first:
+      213: 974611470172311646
+    second: Orbital_44
+  - first:
+      213: 1734918724950583214
+    second: Orbital_45
+  - first:
+      213: -5335560722545668949
+    second: Orbital_46
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Orbital_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 27
+        width: 1258
+        height: 1209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb11a4dfa8f058f60800000000000000
+      internalID: 8035846199741911483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_1
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 1139
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec2283a6774fb1ae0800000000000000
+      internalID: -1577398450742877490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_2
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 1140
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96f2fdbf729ebe200800000000000000
+      internalID: 210518165541564265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_3
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 1102
+        width: 49
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb3b08f3fb0104b0800000000000000
+      internalID: -5476082529439368195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_4
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 1108
+        width: 35
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 293ac58e881b434d0800000000000000
+      internalID: -3155702237307821166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_5
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 1107
+        width: 44
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a1a3f37bcd76a70800000000000000
+      internalID: 8820261074826304144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_6
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 771
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caa1956802c160610800000000000000
+      internalID: 1586986844713196204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_7
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 744
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3cbade7e45632740800000000000000
+      internalID: 5126052188687875135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_8
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 715
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e85d1d516d747f250800000000000000
+      internalID: 5978326015172269454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_9
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 718
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6f69a3e2c204eef0800000000000000
+      internalID: -79935857319383189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_10
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 708
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc65cbf24b2420460800000000000000
+      internalID: 7206395695408633551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_11
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 671
+        width: 13
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4411ed90a54a4ef0800000000000000
+      internalID: -123209483653409716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_12
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 692
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d6d1f19a81445340800000000000000
+      internalID: 4851574761994704592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_13
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 693
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e76e2833d44c8e150800000000000000
+      internalID: 5902183147524777598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_14
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 623
+        width: 6
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a31d6672ae4a6b440800000000000000
+      internalID: 4951326165930791226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_15
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 641
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f488978080ad77300800000000000000
+      internalID: 249908032379127887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_16
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 603
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb4b48e61b231fd30800000000000000
+      internalID: 4463404443345663164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_17
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 563
+        width: 7
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2211f1c0bb6de4aa0800000000000000
+      internalID: -6174761940227780318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_18
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 569
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d586981c340e9830800000000000000
+      internalID: 4079702968601314773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_19
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 583
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bb15d7d113160b70800000000000000
+      internalID: 8864793883881839540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_20
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 572
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af765b3daa1eb5b90800000000000000
+      internalID: -7251954651137480710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_21
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 537
+        width: 12
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3b1d35669211bdc0800000000000000
+      internalID: -3625095787903640770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_22
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 562
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 667b063b82e0a4200800000000000000
+      internalID: 164959904323385190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_23
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 530
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8544997ad0737f820800000000000000
+      internalID: 2951888612550591576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_24
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 523
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beba1851cea522d20800000000000000
+      internalID: 3252261850934520811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_25
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 537
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e1cb69e2f5a9ccb0800000000000000
+      internalID: -4843157461543435805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_26
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 536
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 948a2724ec5bc2c40800000000000000
+      internalID: 5488961943340492873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_27
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 513
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b3b4786152d844c0800000000000000
+      internalID: -4302958196865846349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_28
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 478
+        width: 23
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 910003f288057fe80800000000000000
+      internalID: -8144952855238803431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_29
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 512
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e97432587ec6c4ab0800000000000000
+      internalID: -5022519742798018658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_30
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 494
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc9365bd367dbabb0800000000000000
+      internalID: -4923604943717910065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_31
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 474
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 422cf4aadb68a76c0800000000000000
+      internalID: -4144852357876825564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_32
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 445
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81dd80740acb7eef0800000000000000
+      internalID: -78887071883141864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_33
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 460
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82f7259fce5325320800000000000000
+      internalID: 2545156031329238824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_34
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 173
+        width: 25
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c384b274ccaad2af0800000000000000
+      internalID: -419491395931518916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_35
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 166
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fae0fe1c87cbfd2a0800000000000000
+      internalID: -6710437692922982737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_36
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 155
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6b8cfcce076cfab0800000000000000
+      internalID: -4972986575257564305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_37
+      rect:
+        serializedVersion: 2
+        x: 1154
+        y: 104
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bb07cb6b7f1c1e20800000000000000
+      internalID: 3322565240042228659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_38
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 89
+        width: 33
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4be83c725e2e72100800000000000000
+      internalID: 83284591972159156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_39
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 96
+        width: 15
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2917a2252b74cca0800000000000000
+      internalID: -5997533404325275350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_40
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 84
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11ddb718cc0afc920800000000000000
+      internalID: 3012803475940302097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_41
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 54
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 180360145cfa7bbf0800000000000000
+      internalID: -308584787717246847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_42
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 67
+        width: 21
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 757a27b3fa1ec3980800000000000000
+      internalID: -8557717049177888937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_43
+      rect:
+        serializedVersion: 2
+        x: 1257
+        y: 61
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbb6349361872fba0800000000000000
+      internalID: -6056646512014562372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_44
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 25
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5054a9e7f3868d00800000000000000
+      internalID: 974611470172311646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_45
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 11
+        width: 21
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea76ada636ba31810800000000000000
+      internalID: 1734918724950583214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orbital_46
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 16
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bac8327bac744f5b0800000000000000
+      internalID: -5335560722545668949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Orbital_0: 8035846199741911483
+      Orbital_1: -1577398450742877490
+      Orbital_10: 7206395695408633551
+      Orbital_11: -123209483653409716
+      Orbital_12: 4851574761994704592
+      Orbital_13: 5902183147524777598
+      Orbital_14: 4951326165930791226
+      Orbital_15: 249908032379127887
+      Orbital_16: 4463404443345663164
+      Orbital_17: -6174761940227780318
+      Orbital_18: 4079702968601314773
+      Orbital_19: 8864793883881839540
+      Orbital_2: 210518165541564265
+      Orbital_20: -7251954651137480710
+      Orbital_21: -3625095787903640770
+      Orbital_22: 164959904323385190
+      Orbital_23: 2951888612550591576
+      Orbital_24: 3252261850934520811
+      Orbital_25: -4843157461543435805
+      Orbital_26: 5488961943340492873
+      Orbital_27: -4302958196865846349
+      Orbital_28: -8144952855238803431
+      Orbital_29: -5022519742798018658
+      Orbital_3: -5476082529439368195
+      Orbital_30: -4923604943717910065
+      Orbital_31: -4144852357876825564
+      Orbital_32: -78887071883141864
+      Orbital_33: 2545156031329238824
+      Orbital_34: -419491395931518916
+      Orbital_35: -6710437692922982737
+      Orbital_36: -4972986575257564305
+      Orbital_37: 3322565240042228659
+      Orbital_38: 83284591972159156
+      Orbital_39: -5997533404325275350
+      Orbital_4: -3155702237307821166
+      Orbital_40: 3012803475940302097
+      Orbital_41: -308584787717246847
+      Orbital_42: -8557717049177888937
+      Orbital_43: -6056646512014562372
+      Orbital_44: 974611470172311646
+      Orbital_45: 1734918724950583214
+      Orbital_46: -5335560722545668949
+      Orbital_5: 8820261074826304144
+      Orbital_6: 1586986844713196204
+      Orbital_7: 5126052188687875135
+      Orbital_8: 5978326015172269454
+      Orbital_9: -79935857319383189
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b667378cc27a9847b453a264fb4c498, type: 3}
-  m_Name: LightningWeaponData
+  m_Script: {fileID: 11500000, guid: 327a0fe8628782241a980d4e5f777bcc, type: 3}
+  m_Name: OrbitalWeaponUpgrade
   m_EditorClassIdentifier: 
-  weaponName: "\uBC88\uAC1C"
-  damage: 10
-  fireRate: 1
-  projectileSpeed: 8
-  projectileRange: 10
-  pierceCount: 0
-  projectileScale: 0.3
+  upgradeName: "\uD68C\uC804 \uBB34\uAE30 \uAC15\uD654"
+  description: "\uB354 \uB9CE\uC774 \uB3D5\uB2C8\uB2E4\n"
+  icon: {fileID: 0}

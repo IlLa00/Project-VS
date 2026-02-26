@@ -1,0 +1,379 @@
+fileFormatVersion: 2
+guid: 50655e07dbb39fd41a21133e83c7b955
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3402156135608667222
+    second: LightningStrike_0
+  - first:
+      213: 7559705602877933973
+    second: LightningStrike_1
+  - first:
+      213: 6854087939297921297
+    second: LightningStrike_2
+  - first:
+      213: 7980869619337426929
+    second: LightningStrike_3
+  - first:
+      213: -6735394797777408168
+    second: LightningStrike_4
+  - first:
+      213: 6875750991074769969
+    second: LightningStrike_5
+  - first:
+      213: -6384150917626899302
+    second: LightningStrike_6
+  - first:
+      213: -3694694878941007333
+    second: LightningStrike_7
+  - first:
+      213: -3818324212276168146
+    second: LightningStrike_8
+  - first:
+      213: -113787731141275532
+    second: LightningStrike_9
+  - first:
+      213: 1456774262850763301
+    second: LightningStrike_10
+  - first:
+      213: 5227063365213845780
+    second: LightningStrike_11
+  - first:
+      213: -3696893988384933859
+    second: LightningStrike_12
+  - first:
+      213: -1596173323203606372
+    second: LightningStrike_13
+  - first:
+      213: 6854244362646448678
+    second: LightningStrike_14
+  - first:
+      213: 2261386732561315926
+    second: LightningStrike_15
+  - first:
+      213: 1751538271402299351
+    second: LightningStrike_16
+  - first:
+      213: 396773569389560776
+    second: LightningStrike_17
+  - first:
+      213: 8406475755085425868
+    second: LightningStrike_18
+  - first:
+      213: 1228122488213836120
+    second: LightningStrike_19
+  - first:
+      213: -8526205329003086097
+    second: LightningStrike_20
+  - first:
+      213: 5694557641183745697
+    second: LightningStrike_21
+  - first:
+      213: -795247818147002278
+    second: LightningStrike_22
+  - first:
+      213: -4302940266808696289
+    second: LightningStrike_23
+  - first:
+      213: -1928126784032792742
+    second: LightningStrike_24
+  - first:
+      213: 6547254742145790682
+    second: LightningStrike_25
+  - first:
+      213: 4247555117251168319
+    second: LightningStrike_26
+  - first:
+      213: 1684033154582145236
+    second: LightningStrike_27
+  - first:
+      213: 3599306991952735227
+    second: LightningStrike_28
+  - first:
+      213: 7155315571439253407
+    second: LightningStrike_29
+  - first:
+      213: 7510126901930218526
+    second: LightningStrike_30
+  - first:
+      213: -4794885784024689228
+    second: LightningStrike_31
+  - first:
+      213: -2289933839099808795
+    second: LightningStrike_32
+  - first:
+      213: 6051513593698844330
+    second: LightningStrike_33
+  - first:
+      213: -3051006312963914144
+    second: LightningStrike_34
+  - first:
+      213: 4013769951369178979
+    second: LightningStrike_35
+  - first:
+      213: 1196324241439568935
+    second: LightningStrike_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LightningStrike_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65cce5ddaf2e63f20800000000000000
+      internalID: 3402156135608667222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningStrike_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 599c11a513879e860800000000000000
+      internalID: 7559705602877933973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningStrike_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11944219aac9e1f50800000000000000
+      internalID: 6854087939297921297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningStrike_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f7705362aeb1ce60800000000000000
+      internalID: 7980869619337426929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningStrike_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85fa678fd121782a0800000000000000
+      internalID: -6735394797777408168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightningStrike_5
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13c3d0bd8139b6f50800000000000000
+      internalID: 6875750991074769969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 472021f2f54510246ae11a8f4895e594
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LightningStrike_0: 3402156135608667222
+      LightningStrike_1: 7559705602877933973
+      LightningStrike_2: 6854087939297921297
+      LightningStrike_3: 7980869619337426929
+      LightningStrike_4: -6735394797777408168
+      LightningStrike_5: 6875750991074769969
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
