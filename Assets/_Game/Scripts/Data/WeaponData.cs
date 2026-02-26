@@ -17,6 +17,5 @@ namespace VS.Data
         public float projectileRange = 10f; // 최대 사거리
         public int pierceCount = 0;         // 관통 횟수 (0 = 1회 히트)
         public float projectileScale = 0.3f;
-        public Color projectileColor = Color.yellow;
     }
 }

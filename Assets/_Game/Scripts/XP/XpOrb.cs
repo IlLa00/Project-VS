@@ -33,8 +33,11 @@ namespace VS.XP
 
         void Update()
         {
-            if (GameManager.Instance?.State != GameState.Playing) return;
-            if (_player == null) return;
+            if (GameManager.Instance?.State != GameState.Playing) 
+                return;
+
+            if (_player == null) 
+                return;
 
             float sqrDist = ((Vector2)_player.position - (Vector2)transform.position).sqrMagnitude;
 

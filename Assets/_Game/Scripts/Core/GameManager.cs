@@ -78,6 +78,7 @@ namespace VS.Core
         {
             int minutes = (int)(SurvivalTime / 60f);
             int seconds = (int)(SurvivalTime % 60f);
+            
             return $"{minutes:00}:{seconds:00}";
         }
     }

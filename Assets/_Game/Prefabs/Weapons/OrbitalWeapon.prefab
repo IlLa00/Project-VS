@@ -49,5 +49,5 @@ MonoBehaviour:
   damage: 15
   hitInterval: 0.5
   orbSize: 0.25
-  orbColor: {r: 1, g: 0.72356254, b: 0, a: 1}
-  orbSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  orbColor: {r: 1, g: 1, b: 1, a: 1}
+  orbSprite: {fileID: 8035846199741911483, guid: abaeeb17ebbb95c4bb240e04b2aefde3, type: 3}

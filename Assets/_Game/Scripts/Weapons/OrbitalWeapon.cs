@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VS.Core;
-using VS.Data;
 using VS.Enemies;
 
 namespace VS.Weapons
@@ -36,22 +35,30 @@ namespace VS.Weapons
 
         void Awake()
         {
-            AddOrb(); 
+            if (orbSprite == null)
+                orbSprite = Resources.Load<Sprite>("Weapons/Orbital");
+            AddOrb();
         }
 
         void Update()
         {
-            if (GameManager.Instance?.State != GameState.Playing) return;
+            if (GameManager.Instance?.State != GameState.Playing) 
+                return;
 
             _angle += rotationSpeed * Time.deltaTime;
+            
             RefreshOrbPositions();
         }
 
-        public void ApplyUpgrade(WeaponStatType stat, float value)
+        public void Upgrade()
         {
-            if (!CanUpgrade) return;
+            if (!CanUpgrade) 
+                return;
+
             _upgradeLevel++;
+
             AddOrb();
+
             if (_upgradeLevel >= MAX_UPGRADE)
                 rotationSpeed = MAX_ROTATION_SPEED;
         }
@@ -66,9 +73,13 @@ namespace VS.Weapons
             sr.color = orbColor;
             go.transform.localScale = Vector3.one * (orbSize * 2f);
 
+            var rb = go.AddComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.gravityScale = 0f;
+
             var col = go.AddComponent<CircleCollider2D>();
             col.isTrigger = true;
-            col.radius = 0.5f; 
+            col.radius = 0.5f;
 
             var hitbox = go.AddComponent<OrbHitbox>();
             hitbox.Init(this);
@@ -86,10 +97,9 @@ namespace VS.Weapons
             for (int i = 0; i < _orbs.Count; i++)
             {
                 float rad = (_angle + step * i) * Mathf.Deg2Rad;
-                _orbs[i].localPosition = new Vector3(
-                    Mathf.Cos(rad) * orbitRadius,
-                    Mathf.Sin(rad) * orbitRadius,
-                    0f);
+                _orbs[i].SetLocalPositionAndRotation(
+                    new Vector3(Mathf.Cos(rad) * orbitRadius, Mathf.Sin(rad) * orbitRadius, 0f),
+                    Quaternion.Euler(0f, 0f, -_angle));
             }
         }
 
@@ -108,10 +118,12 @@ namespace VS.Weapons
 
         void OnTriggerStay2D(Collider2D other)
         {
-            if (_weapon == null) return;
+            if (_weapon == null) 
+                return;
 
             var enemy = other.GetComponent<EnemyBase>();
-            if (enemy == null) return;
+            if (enemy == null) 
+                return;
 
             if (!_nextHitTime.TryGetValue(enemy, out float t) || Time.time >= t)
             {

@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:assetstore.unity.com)",
       "Bash(grep:2)",
-      "Bash(claude:2)"
+      "Bash(claude:2)",
+      "Bash(git rm \"Project VS.slnx\" \"Project_VS.slnx\")"
     ]
   }
 }

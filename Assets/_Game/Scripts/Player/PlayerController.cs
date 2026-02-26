@@ -20,6 +20,7 @@ namespace VS.Player
 
         public static PlayerController Instance { get; private set; }
         public Transform Transform => transform;
+        public Vector2 MoveDirection => _moveDir;
 
         private Vector2 _moveDir;
 

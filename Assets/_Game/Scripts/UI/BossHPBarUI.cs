@@ -5,10 +5,6 @@ using VS.Enemies;
 
 namespace VS.UI
 {
-    /// <summary>
-    /// 보스가 스폰될 때 화면에 표시되는 전용 HP바.
-    /// EnemySpawner.OnBossSpawned 이벤트를 구독해 자동으로 활성화된다.
-    /// </summary>
     public class BossHPBarUI : MonoBehaviour
     {
         [SerializeField] private GameObject panel;

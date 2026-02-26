@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b667378cc27a9847b453a264fb4c498, type: 3}
+  m_Name: ProjectileData
+  m_EditorClassIdentifier: 
+  weaponName: "\uBC1C\uC0AC\uCCB4"
+  damage: 10
+  fireRate: 1
+  projectileSpeed: 8
+  projectileRange: 10
+  pierceCount: 0
+  projectileScale: 0.3

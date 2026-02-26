@@ -13,9 +13,17 @@ MonoBehaviour:
   m_Name: EnemyData 1
   m_EditorClassIdentifier: 
   enemyName: Enemy
+  enemyType: 0
   maxHp: 30
   moveSpeed: 6
   contactDamage: 10
-  xpDrop: 5
+  xpDrop: 30
   sprite: {fileID: 0}
   color: {r: 1, g: 0, b: 0, a: 1}
+  walkFrames: []
+  animFrameRate: 8
+  deathFrames: []
+  deathFrameRate: 8
+  buffStatType: 0
+  buffValue: 0
+  buffDuration: 0

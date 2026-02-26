@@ -1,6 +1,5 @@
 using UnityEngine;
 using VS.Core;
-using VS.Data;
 using VS.Enemies;
 using VS.Player;
 
@@ -10,7 +9,7 @@ namespace VS.Weapons
     {
         [Header("공격 설정")]
         [SerializeField] private float cooldown = 5f;
-        [SerializeField] private float strikeRadius = 8f;   // 플레이어로부터 벼락이 내리칠 수 있는 최대 반경
+        [SerializeField] private float strikeRadius = 4f;   // 플레이어로부터 벼락이 내리칠 수 있는 최대 반경
         [SerializeField] private float damageRadius = 1.5f; // 각 벼락의 피해 범위
         [SerializeField] private float damage = 30f;
 
@@ -42,7 +41,7 @@ namespace VS.Weapons
             _timer = _currentCooldown;
 
             if (strikePrefab != null)
-                _pool = new ObjectPool<LightningStrike>(strikePrefab, 10, transform);
+                _pool = new ObjectPool<LightningStrike>(strikePrefab, 10, null);
         }
 
         void Update()
@@ -66,6 +65,14 @@ namespace VS.Weapons
             Vector2 strikePos = (Vector2)transform.position
                 + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * dist;
 
+            if (Camera.main != null)
+            {
+                Vector3 min = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0.05f, 0f));
+                Vector3 max = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.95f, 0f));
+                strikePos.x = Mathf.Clamp(strikePos.x, min.x, max.x);
+                strikePos.y = Mathf.Clamp(strikePos.y, min.y, max.y);
+            }
+
             float finalDamage = damage * (_playerStats?.DamageMultiplier ?? 1f);
             Collider2D[] hits = Physics2D.OverlapCircleAll(strikePos, damageRadius);
             foreach (var hit in hits)
@@ -82,9 +89,11 @@ namespace VS.Weapons
             }
         }
 
-        public void ApplyUpgrade(WeaponStatType stat, float value)
+        public void Upgrade()
         {
-            if (!CanUpgrade) return;
+            if (!CanUpgrade)
+                return;
+
             _upgradeLevel++;
             _boltCount++;
             if (_upgradeLevel >= MAX_UPGRADE)
