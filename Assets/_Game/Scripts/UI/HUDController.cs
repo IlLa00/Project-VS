@@ -14,10 +14,12 @@ namespace VS.UI
         [SerializeField] private Slider cooldownSlider;
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private TextMeshProUGUI killCountText;
 
         private PlayerStats _playerStats;
         private PlayerXP _playerXP;
         private ProjectileWeapon _weaponBase;
+        private KillCountManager _killCountManager;
 
         void Start()
         {
@@ -39,6 +41,13 @@ namespace VS.UI
 
             if (PlayerController.Instance != null)
                 _weaponBase = PlayerController.Instance.GetComponentInChildren<ProjectileWeapon>();
+
+            _killCountManager = KillCountManager.Instance;
+            if (_killCountManager != null)
+            {
+                _killCountManager.OnKillCountChanged += UpdateKillCountText;
+                UpdateKillCountText(0);
+            }
         }
 
         void OnDestroy()
@@ -51,6 +60,9 @@ namespace VS.UI
                 _playerXP.OnXpChanged -= UpdateXpBar;
                 _playerXP.OnLevelUp -= UpdateLevelText;
             }
+
+            if (_killCountManager != null)
+                _killCountManager.OnKillCountChanged -= UpdateKillCountText;
         }
 
         void Update()
@@ -79,6 +91,12 @@ namespace VS.UI
         {
             if (levelText != null)
                 levelText.text = $"Lv.{level}";
+        }
+
+        private void UpdateKillCountText(int count)
+        {
+            if (killCountText != null)
+                killCountText.text = $"처치 {count}";
         }
     }
 }

@@ -32,24 +32,52 @@ namespace VS.Core
         [SerializeField] private AudioClip sfxShoot;
         [SerializeField] private AudioClip sfxBossSpawn;
 
-        [Header("볼륨")]
-        [SerializeField] [Range(0f, 1f)] private float bgmVolume = 0.5f;
-        [SerializeField] [Range(0f, 1f)] private float sfxVolume = 1f;
+        [Header("볼륨 기본값")]
+        [SerializeField] [Range(0f, 1f)] private float defaultBgmVolume = 0.5f;
+        [SerializeField] [Range(0f, 1f)] private float defaultSfxVolume = 1f;
+
+        private const string KeyBgmVolume = "BGMVolume";
+        private const string KeySfxVolume = "SFXVolume";
+
+        private float _bgmVolume;
+        private float _sfxVolume;
 
         private AudioSource _bgmSource;
         private AudioSource _sfxSource;
+
+        public float BgmVolume => _bgmVolume;
+        public float SfxVolume => _sfxVolume;
 
         void Awake()
         {
             if (Instance != null) { Destroy(gameObject); return; }
             Instance = this;
 
+            _bgmVolume = PlayerPrefs.GetFloat(KeyBgmVolume, defaultBgmVolume);
+            _sfxVolume = PlayerPrefs.GetFloat(KeySfxVolume, defaultSfxVolume);
+
             _bgmSource = gameObject.AddComponent<AudioSource>();
             _bgmSource.loop = true;
-            _bgmSource.volume = bgmVolume;
+            _bgmSource.volume = _bgmVolume;
 
             _sfxSource = gameObject.AddComponent<AudioSource>();
-            _sfxSource.volume = sfxVolume;
+            _sfxSource.volume = _sfxVolume;
+        }
+
+        public void SetBgmVolume(float volume)
+        {
+            _bgmVolume = Mathf.Clamp01(volume);
+            _bgmSource.volume = _bgmVolume;
+            PlayerPrefs.SetFloat(KeyBgmVolume, _bgmVolume);
+            PlayerPrefs.Save();
+        }
+
+        public void SetSfxVolume(float volume)
+        {
+            _sfxVolume = Mathf.Clamp01(volume);
+            _sfxSource.volume = _sfxVolume;
+            PlayerPrefs.SetFloat(KeySfxVolume, _sfxVolume);
+            PlayerPrefs.Save();
         }
 
         void OnEnable()
@@ -102,7 +130,7 @@ namespace VS.Core
             };
 
             if (clip == null) return;
-            _sfxSource.PlayOneShot(clip, sfxVolume);
+            _sfxSource.PlayOneShot(clip, _sfxVolume);
         }
 
         private void PlayBGM()
