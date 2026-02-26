@@ -3,10 +3,6 @@ using VS.Player;
 
 namespace VS.Core
 {
-    /// <summary>
-    /// 카메라가 플레이어를 부드럽게 따라감. Cinemachine 불필요.
-    /// Main Camera에 attach.
-    /// </summary>
     public class CameraFollow : MonoBehaviour
     {
         private Transform _target;

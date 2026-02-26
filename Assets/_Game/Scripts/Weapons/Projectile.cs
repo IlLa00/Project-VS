@@ -18,12 +18,8 @@ namespace VS.Weapons
         private Vector2 _startPos;
         private Action<Projectile> _returnToPool;
 
-        // 관통 시 같은 적 중복 히트 방지
         private readonly HashSet<EnemyBase> _hitEnemies = new HashSet<EnemyBase>();
-
-        // FixedUpdate와 OnTriggerEnter2D가 동시에 ReturnSelf를 호출하는 경우 방지
         private bool _isDead;
-
         private Rigidbody2D _rb;
 
         void Awake()
@@ -49,8 +45,6 @@ namespace VS.Weapons
             _hitEnemies.Clear();
         }
 
-        // Kinematic Rigidbody2D는 MovePosition을 FixedUpdate에서 호출해야
-        // 트리거 감지가 프레임 사이에 누락되지 않음
         void FixedUpdate()
         {
             if (_isDead) return;

@@ -84,7 +84,9 @@ namespace VS.Weapons
 
         public void ApplyUpgrade(WeaponStatType stat, float value)
         {
-            if (!CanUpgrade) return;
+            if (!CanUpgrade) 
+                return;
+                
             _upgradeLevel++;
             _boltCount++;
             if (_upgradeLevel >= MAX_UPGRADE)

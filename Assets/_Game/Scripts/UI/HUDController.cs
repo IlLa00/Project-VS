@@ -17,7 +17,7 @@ namespace VS.UI
 
         private PlayerStats _playerStats;
         private PlayerXP _playerXP;
-        private WeaponBase _weaponBase;
+        private ProjectileWeapon _weaponBase;
 
         void Start()
         {
@@ -38,7 +38,7 @@ namespace VS.UI
             }
 
             if (PlayerController.Instance != null)
-                _weaponBase = PlayerController.Instance.GetComponentInChildren<WeaponBase>();
+                _weaponBase = PlayerController.Instance.GetComponentInChildren<ProjectileWeapon>();
         }
 
         void OnDestroy()
