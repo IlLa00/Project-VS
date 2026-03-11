@@ -24,6 +24,9 @@ namespace VS.Player
 
         private Vector2 _moveDir;
 
+        private bool _isStunned;
+        private float _stunTimer;
+
         private float _animTimer;
         private int _animFrame;
 
@@ -52,6 +55,12 @@ namespace VS.Player
             _moveDir = dir;
         }
 
+        public void ApplyStun(float duration)
+        {
+            _stunTimer = Mathf.Max(_stunTimer, duration);
+            _isStunned = true;
+        }
+
         void Update()
         {
             if (_isDying)
@@ -73,8 +82,16 @@ namespace VS.Player
                 return; 
             }
 
-            if (GameManager.Instance?.State != GameState.Playing) 
+            if (GameManager.Instance?.State != GameState.Playing)
                 return;
+
+            if (_stunTimer > 0f)
+            {
+                _stunTimer -= Time.deltaTime;
+                if (_stunTimer <= 0f) _isStunned = false;
+            }
+
+            if (_isStunned) return;
 
             transform.position += (Vector3)(_moveDir * _stats.MoveSpeed * Time.deltaTime);
 

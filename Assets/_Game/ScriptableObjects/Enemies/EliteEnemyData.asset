@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa908ef68b11884ba84cb8483f10e53, type: 3}
+  m_Name: EliteEnemyData
+  m_EditorClassIdentifier: 
+  enemyName: Enemy
+  enemyType: 1
+  maxHp: 50
+  moveSpeed: 1
+  contactDamage: 15
+  xpDrop: 50
+  sprite: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  walkFrames:
+  - {fileID: -1102658140494009503, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: 4272644142013868712, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: -1495046806309912475, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: -6647126375462219642, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: 4057402775550898489, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: 5550527398145924558, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: -4032397436892849873, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: 6405939543489631582, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: -499042314701933773, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  animFrameRate: 8
+  deathFrames:
+  - {fileID: 2464334958557476822, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: 1526330279337852673, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  - {fileID: -5533795316931601310, guid: 6bb7ec95107b72d4db74b25716fc616d, type: 3}
+  deathFrameRate: 8
+  buffStatType: 0
+  buffValue: 10
+  buffDuration: 10

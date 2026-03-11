@@ -23,17 +23,19 @@ namespace VS.Enemies
         [SerializeField] private float rampDuration = 300f;     // 최대 난이도 도달 시간 (초)
 
         [Header("엘리트 설정")]
+        [SerializeField] private EliteEnemy elitePrefab;        // EliteEnemy 프리팹
         [SerializeField] private EnemyData[] eliteTypes;        // 엘리트 EnemyData 배열
-[SerializeField] private float eliteSpawnInterval = 60f; // 엘리트 정기 스폰 간격 (초, 기본 1분)
+        [SerializeField] private float eliteSpawnInterval = 60f; // 엘리트 정기 스폰 간격 (초, 기본 1분)
 
         [Header("보스 설정")]
+        [SerializeField] private BossEnemy bossPrefab;           // 보스 전용 프리팹
         [SerializeField] private EnemyData[] bossTypes;         // 보스 EnemyData 배열
         [SerializeField] private float bossSpawnInterval = 180f;// 보스 등장 간격 (초, 기본 3분)
 
-        /// <summary>보스가 스폰될 때 발행된다. BossHPBarUI 등이 구독.</summary>
         public static event Action<EnemyBase> OnBossSpawned;
 
         private ObjectPool<EnemyBase> _pool;
+        private ObjectPool<EliteEnemy> _elitePool;
         private float _spawnTimer;
         private float _bossTimer;
         private float _eliteTimer;
@@ -41,6 +43,8 @@ namespace VS.Enemies
         void Start()
         {
             _pool = new ObjectPool<EnemyBase>(enemyPrefab, preloadCount, transform);
+            if (elitePrefab != null)
+                _elitePool = new ObjectPool<EliteEnemy>(elitePrefab, 5, transform);
             _bossTimer = bossSpawnInterval;
             _eliteTimer = eliteSpawnInterval;
         }
@@ -69,7 +73,7 @@ namespace VS.Enemies
                 if (_eliteTimer <= 0f)
                 {
                     _eliteTimer = eliteSpawnInterval;
-                    SpawnEnemy(eliteTypes[UnityEngine.Random.Range(0, eliteTypes.Length)]);
+                    SpawnEliteEnemy(eliteTypes[UnityEngine.Random.Range(0, eliteTypes.Length)]);
                 }
             }
 
@@ -85,6 +89,18 @@ namespace VS.Enemies
             }
         }
 
+
+        private void SpawnEliteEnemy(EnemyData data)
+        {
+            if (_elitePool == null) return;
+            float t = GetDifficultyT();
+            EliteEnemy elite = _elitePool.Get();
+            elite.transform.position = GetSpawnPosition();
+            elite.Init(data, e => _elitePool.Return((EliteEnemy)e),
+                hpMult: Mathf.Lerp(1f, maxStatMultiplier, t),
+                speedMult: Mathf.Lerp(1f, 1.8f, t),
+                damageMult: Mathf.Lerp(1f, maxStatMultiplier, t));
+        }
 
         private void SpawnNormalOrElite()
         {
@@ -117,15 +133,13 @@ namespace VS.Enemies
         private void TrySpawnBoss()
         {
             foreach (EnemyBase e in EnemyBase.ActiveEnemies)
-            {
                 if (e.EnemyType == EnemyType.Boss) return;
-            }
+
+            if (bossPrefab == null || bossTypes == null || bossTypes.Length == 0) return;
 
             EnemyData bossData = bossTypes[UnityEngine.Random.Range(0, bossTypes.Length)];
-            EnemyBase boss = _pool.Get();
-            boss.transform.position = GetSpawnPosition();
-
-            boss.Init(bossData, ReturnToPool);
+            BossEnemy boss = Instantiate(bossPrefab, GetSpawnPosition(), Quaternion.identity);
+            boss.Init(bossData, b => Destroy(b.gameObject));
 
             OnBossSpawned?.Invoke(boss);
         }

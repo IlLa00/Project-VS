@@ -4,6 +4,7 @@ using UnityEngine;
 using VS.Core;
 using VS.Data;
 using VS.Player;
+using VS.UI;
 using VS.XP;
 
 namespace VS.Enemies
@@ -46,7 +47,7 @@ namespace VS.Enemies
         public string EnemyName => _data?.enemyName;
         public EnemyType EnemyType => _data?.enemyType ?? default;
 
-        void Awake()
+        protected virtual void Awake()
         {
             _sr = GetComponent<SpriteRenderer>();
 
@@ -55,7 +56,7 @@ namespace VS.Enemies
             col.radius = contactRadius;
         }
 
-        void OnEnable()
+        protected virtual void OnEnable()
         {
             ActiveEnemies.Add(this);
             var pc = PlayerController.Instance;
@@ -66,7 +67,7 @@ namespace VS.Enemies
             }
         }
 
-        void OnDisable()
+        protected virtual void OnDisable()
         {
             ActiveEnemies.Remove(this);
         }
@@ -81,7 +82,7 @@ namespace VS.Enemies
             _effectiveDamage = data.contactDamage * damageMult;
             _onDeath = onDeathCallback;
 
-            // 이전 구독자 정리 (풀 재사용 시 누적 방지)
+            // 이전 구독자 정리
             OnHpChanged = null;
             OnDied = null;
 
@@ -100,8 +101,11 @@ namespace VS.Enemies
 
         void Update()
         {
-            if (_data == null) return;
-            if (GameManager.Instance?.State != GameState.Playing) return;
+            if (_data == null) 
+                return;
+
+            if (GameManager.Instance?.State != GameState.Playing) 
+                return;
 
             // 사망 애니메이션 재생 중 — 이동/공격 로직 전부 스킵
             if (_isDying)
@@ -158,9 +162,11 @@ namespace VS.Enemies
         public void TakeDamage(float amount)
         {
             if (_data == null || _isDying) return;
+            bool isKill = amount >= _currentHp;
             _currentHp = Mathf.Max(0f, _currentHp - amount);
             OnHpChanged?.Invoke(_currentHp, _maxHp);
             SoundManager.Instance?.Play(SoundType.EnemyHit);
+            DamageFloaterSpawner.Instance?.Show(amount, isKill, transform.position);
 
             if (_currentHp <= 0f)
             {
