@@ -2954,8 +2954,8 @@ MonoBehaviour:
   sfxGameOver: {fileID: 0}
   sfxShoot: {fileID: 0}
   sfxBossSpawn: {fileID: 0}
-  bgmVolume: 0.5
-  sfxVolume: 1
+  defaultBgmVolume: 0.5
+  defaultSfxVolume: 1
 --- !u!4 &1040289025
 Transform:
   m_ObjectHideFlags: 0
@@ -4737,6 +4737,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616416699}
   m_CullTransparentMesh: 1
+--- !u!1 &1641796540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1641796542}
+  - component: {fileID: 1641796541}
+  m_Layer: 0
+  m_Name: DamageFloaterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1641796541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641796540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d70f3dee98e624aae8d7ce404520e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floaterPrefab: {fileID: 782523761058912775, guid: dde7318fe8fc18e42832140c1f60b495, type: 3}
+  spawnHeightOffset: 0.5
+--- !u!4 &1641796542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641796540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.196429, y: 23.858797, z: -0.088542975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1693914006
 GameObject:
   m_ObjectHideFlags: 0
@@ -5737,10 +5783,14 @@ MonoBehaviour:
   minInterval: 0.25
   maxStatMultiplier: 6
   rampDuration: 300
-  eliteTypes: []
-  eliteSpawnInterval: 60
-  bossTypes: []
-  bossSpawnInterval: 180
+  elitePrefab: {fileID: 2869339526475301198, guid: 25bc926a29fdc0e40995c6fad8d40df4, type: 3}
+  eliteTypes:
+  - {fileID: 11400000, guid: f5798a4bd74390a408ade878eacdc7a0, type: 2}
+  eliteSpawnInterval: 5
+  bossPrefab: {fileID: 4205317001922102507, guid: 3521c978700e3d64588f4d2971fd3c64, type: 3}
+  bossTypes:
+  - {fileID: 11400000, guid: 33801c8e4f398de41a7ed02ed9a57f19, type: 2}
+  bossSpawnInterval: 60
 --- !u!4 &2063523505
 Transform:
   m_ObjectHideFlags: 0
@@ -5892,3 +5942,4 @@ SceneRoots:
   - {fileID: 1040289025}
   - {fileID: 1343522406}
   - {fileID: 289395239}
+  - {fileID: 1641796542}
