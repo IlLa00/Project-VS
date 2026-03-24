@@ -13,6 +13,7 @@ namespace VS.Core
         private Transform[] _tiles;
         private float _tileSize;
         private float _gridW, _gridH;
+        private Vector3 _tilePos;
 
         void Start()
         {
@@ -73,7 +74,9 @@ namespace VS.Core
                 else if (dy < -halfH) 
                     py -= _gridH;
 
-                tile.position = new Vector3(px, py, 0f);
+                _tilePos.x = px;
+                _tilePos.y = py;
+                tile.position = _tilePos;
             }
         }
     }

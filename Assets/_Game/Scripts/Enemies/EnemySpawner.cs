@@ -36,17 +36,22 @@ namespace VS.Enemies
 
         private ObjectPool<EnemyBase> _pool;
         private ObjectPool<EliteEnemy> _elitePool;
+        private ObjectPool<BossEnemy> _bossPool;
         private float _spawnTimer;
         private float _bossTimer;
         private float _eliteTimer;
+        private Camera _mainCamera;
 
         void Start()
         {
             _pool = new ObjectPool<EnemyBase>(enemyPrefab, preloadCount, transform);
             if (elitePrefab != null)
                 _elitePool = new ObjectPool<EliteEnemy>(elitePrefab, 5, transform);
+            if (bossPrefab != null)
+                _bossPool = new ObjectPool<BossEnemy>(bossPrefab, 1, transform);
             _bossTimer = bossSpawnInterval;
             _eliteTimer = eliteSpawnInterval;
+            _mainCamera = Camera.main;
         }
 
         void Update()
@@ -132,14 +137,16 @@ namespace VS.Enemies
 
         private void TrySpawnBoss()
         {
-            foreach (EnemyBase e in EnemyBase.ActiveEnemies)
-                if (e.EnemyType == EnemyType.Boss) return;
+            var enemies = EnemyBase.ActiveEnemies;
+            for (int i = 0; i < enemies.Count; i++)
+                if (enemies[i].EnemyType == EnemyType.Boss) return;
 
-            if (bossPrefab == null || bossTypes == null || bossTypes.Length == 0) return;
+            if (_bossPool == null || bossTypes == null || bossTypes.Length == 0) return;
 
             EnemyData bossData = bossTypes[UnityEngine.Random.Range(0, bossTypes.Length)];
-            BossEnemy boss = Instantiate(bossPrefab, GetSpawnPosition(), Quaternion.identity);
-            boss.Init(bossData, b => Destroy(b.gameObject));
+            BossEnemy boss = _bossPool.Get();
+            boss.transform.position = GetSpawnPosition();
+            boss.Init(bossData, b => _bossPool.Return((BossEnemy)b));
 
             OnBossSpawned?.Invoke(boss);
         }
@@ -170,8 +177,8 @@ namespace VS.Enemies
 
         private Vector3 GetSpawnPosition()
         {
-            Vector3 center = Camera.main != null
-                ? Camera.main.transform.position
+            Vector3 center = _mainCamera != null
+                ? _mainCamera.transform.position
                 : Vector3.zero;
 
             float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;

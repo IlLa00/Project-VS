@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -37,15 +38,12 @@ namespace VS.UI
                 return;
             }
 
-            panel.SetActive(true);
+            SaveRecords();
+            StartCoroutine(ShowInterstitialThenPanel());
+        }
 
-            if (survivalTimeText != null && GameManager.Instance != null)
-                survivalTimeText.text = $"생존 시간\n{GameManager.Instance.GetFormattedTime()}";
-
-            if (killCountText != null && KillCountManager.Instance != null)
-                killCountText.text = $"처치 수\n{KillCountManager.Instance.KillCount}";
-
-            // 최고 기록 저장
+        private void SaveRecords()
+        {
             if (GameManager.Instance != null)
             {
                 float best = PlayerPrefs.GetFloat("BestTime", 0f);
@@ -55,9 +53,36 @@ namespace VS.UI
                     PlayerPrefs.Save();
                 }
             }
+            KillCountManager.Instance?.SaveBestKillCount();
+        }
 
-            if (KillCountManager.Instance != null)
-                KillCountManager.Instance.SaveBestKillCount();
+        private IEnumerator ShowInterstitialThenPanel()
+        {
+            var adManager = AdManager.Instance;
+            if (adManager != null && adManager.IsInterstitialReady)
+            {
+                bool closed = false;
+                adManager.ShowInterstitial(() => closed = true);
+                float elapsed = 0f;
+                while (!closed && elapsed < 3f)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    yield return null;
+                }
+            }
+
+            ShowPanel();
+        }
+
+        private void ShowPanel()
+        {
+            panel.SetActive(true);
+
+            if (survivalTimeText != null && GameManager.Instance != null)
+                survivalTimeText.text = $"생존 시간\n{GameManager.Instance.GetFormattedTime()}";
+
+            if (killCountText != null && KillCountManager.Instance != null)
+                killCountText.text = $"처치 수\n{KillCountManager.Instance.KillCount}";
         }
 
         private void OnRestartClicked()

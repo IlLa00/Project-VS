@@ -128,13 +128,15 @@ namespace VS.Weapons
             EnemyBase nearest = null;
             float minSqrDist = float.MaxValue;
 
-            foreach (EnemyBase enemy in EnemyBase.ActiveEnemies)
+            var enemies = EnemyBase.ActiveEnemies;
+            int count = enemies.Count;
+            for (int i = 0; i < count; i++)
             {
-                float sqrDist = Vector2.SqrMagnitude((Vector2)enemy.transform.position - (Vector2)transform.position);
+                float sqrDist = Vector2.SqrMagnitude((Vector2)enemies[i].transform.position - (Vector2)transform.position);
                 if (sqrDist < minSqrDist)
                 {
                     minSqrDist = sqrDist;
-                    nearest = enemy;
+                    nearest = enemies[i];
                 }
             }
             return nearest;

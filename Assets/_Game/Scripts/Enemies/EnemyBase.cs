@@ -69,7 +69,13 @@ namespace VS.Enemies
 
         protected virtual void OnDisable()
         {
-            ActiveEnemies.Remove(this);
+            int idx = ActiveEnemies.IndexOf(this);
+            if (idx >= 0)
+            {
+                int last = ActiveEnemies.Count - 1;
+                ActiveEnemies[idx] = ActiveEnemies[last];
+                ActiveEnemies.RemoveAt(last);
+            }
         }
 
         public void Init(EnemyData data, Action<EnemyBase> onDeathCallback,
@@ -165,7 +171,8 @@ namespace VS.Enemies
             bool isKill = amount >= _currentHp;
             _currentHp = Mathf.Max(0f, _currentHp - amount);
             OnHpChanged?.Invoke(_currentHp, _maxHp);
-            SoundManager.Instance?.Play(SoundType.EnemyHit);
+            if (!isKill)
+                SoundManager.Instance?.Play(SoundType.EnemyHit);
             DamageFloaterSpawner.Instance?.Show(amount, isKill, transform.position);
 
             if (_currentHp <= 0f)
