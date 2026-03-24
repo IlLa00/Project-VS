@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using VS.Player;
 
@@ -13,6 +14,7 @@ namespace VS.Enemies
         private float _maxRange;
         private Vector2 _startPos;
         private Rigidbody2D _rb;
+        private Action<EnemyProjectile> _onReturn;
 
         void Awake()
         {
@@ -24,13 +26,15 @@ namespace VS.Enemies
             col.isTrigger = true;
         }
 
-        public void Init(Vector2 direction, float speed, float damage, float maxRange)
+        public void Init(Vector2 direction, float speed, float damage, float maxRange,
+                         Action<EnemyProjectile> onReturn = null)
         {
             _direction = direction.normalized;
             _speed = speed;
             _damage = damage;
             _maxRange = maxRange;
             _startPos = _rb.position;
+            _onReturn = onReturn;
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
@@ -42,7 +46,7 @@ namespace VS.Enemies
             _rb.MovePosition(newPos);
 
             if (Vector2.SqrMagnitude(newPos - _startPos) >= _maxRange * _maxRange)
-                Destroy(gameObject);
+                Return();
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -51,7 +55,15 @@ namespace VS.Enemies
             if (stats == null) return;
 
             stats.TakeDamage(_damage);
-            Destroy(gameObject);
+            Return();
+        }
+
+        private void Return()
+        {
+            if (_onReturn != null)
+                _onReturn(this);
+            else
+                Destroy(gameObject);
         }
     }
 }

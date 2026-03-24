@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using VS.Core;
 
 namespace VS.UI
 {
@@ -19,6 +20,7 @@ namespace VS.UI
             startButton.onClick.AddListener(OnStartClicked);
             ShowBestTime();
             ShowBestKillCount();
+            AdManager.Instance?.ShowBanner();
         }
 
         private void OnStartClicked()

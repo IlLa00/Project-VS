@@ -29,9 +29,13 @@ namespace VS.Enemies
         private LineRenderer _aimRenderer;
         private const int CircleSegments = 36;
 
-        // 공격 중복 방지
         private bool _isAttacking;
         private bool _pendingProjectile;
+
+        private WaitForSeconds _waitAreaInterval;
+        private WaitForSeconds _waitProjectileInterval;
+        private WaitForSeconds _waitShortDelay;
+        private ObjectPool<EnemyProjectile> _projectilePool;
 
         protected override void Awake()
         {
@@ -43,6 +47,17 @@ namespace VS.Enemies
             _aimRenderer = CreateLineRenderer(new Color(1f, 0.9f, 0f), 0.05f);
             _aimRenderer.positionCount = 2;
             _aimRenderer.gameObject.SetActive(false);
+
+            _waitAreaInterval = new WaitForSeconds(areaAttackInterval);
+            _waitProjectileInterval = new WaitForSeconds(projectileAttackInterval);
+            _waitShortDelay = new WaitForSeconds(0.2f);
+
+            if (enemyProjectilePrefab != null)
+            {
+                var prefabComp = enemyProjectilePrefab.GetComponent<EnemyProjectile>();
+                if (prefabComp != null)
+                    _projectilePool = new ObjectPool<EnemyProjectile>(prefabComp, 5, transform);
+            }
         }
 
         protected override void OnEnable()
@@ -69,7 +84,7 @@ namespace VS.Enemies
         {
             while (true)
             {
-                yield return new WaitForSeconds(areaAttackInterval);
+                yield return _waitAreaInterval;
                 // 투사체 공격 중이거나 대기 중이면 양보
                 while (_isAttacking || _pendingProjectile)
                     yield return null;
@@ -103,7 +118,7 @@ namespace VS.Enemies
                     pc.GetComponent<PlayerStats>()?.TakeDamage(areaAttackDamage);
             }
 
-            yield return new WaitForSeconds(0.2f);
+            yield return _waitShortDelay;
             _circleRenderer.gameObject.SetActive(false);
         }
 
@@ -111,7 +126,7 @@ namespace VS.Enemies
         {
             while (true)
             {
-                yield return new WaitForSeconds(projectileAttackInterval);
+                yield return _waitProjectileInterval;
                 _pendingProjectile = true;
                 // 다른 공격이 끝날 때까지 대기 (우선순위 확보)
                 while (_isAttacking)
@@ -148,13 +163,14 @@ namespace VS.Enemies
             _aimRenderer.gameObject.SetActive(false);
 
 
-            if (enemyProjectilePrefab == null) 
+            if (_projectilePool == null)
                 yield break;
 
             Vector2 dir = ((Vector2)playerTransform.position - (Vector2)transform.position).normalized;
-            GameObject projGO = Instantiate(enemyProjectilePrefab, transform.position, Quaternion.identity);
-            var proj = projGO.GetComponent<EnemyProjectile>();
-            proj?.Init(dir, projectileSpeed, projectileDamage, projectileMaxRange);
+            EnemyProjectile proj = _projectilePool.Get();
+            proj.transform.position = transform.position;
+            proj.Init(dir, projectileSpeed, projectileDamage, projectileMaxRange,
+                      p => _projectilePool.Return(p));
         }
 
         private void DrawCircle(LineRenderer lr, float radius)

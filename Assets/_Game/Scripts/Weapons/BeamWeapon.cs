@@ -28,6 +28,9 @@ namespace VS.Weapons
         private bool _beamActive;
 
         private PlayerStats _playerStats;
+        private Color _startColorCache;
+        private Color _endColorCache;
+        private static readonly RaycastHit2D[] _raycastBuffer = new RaycastHit2D[32];
 
         public int UpgradeLevel => _upgradeLevel;
         public bool CanUpgrade => _upgradeLevel < MAX_UPGRADE;
@@ -54,7 +57,9 @@ namespace VS.Weapons
             _line.sortingOrder = 5;
             _line.material = new Material(Shader.Find("Sprites/Default"));
             _line.startColor = beamColor;
-            _line.endColor = new Color(beamColor.r, beamColor.g, beamColor.b, 0f);
+            _endColorCache = beamColor;
+            _endColorCache.a = 0f;
+            _line.endColor = _endColorCache;
             _line.enabled = false;
         }
 
@@ -89,8 +94,10 @@ namespace VS.Weapons
                 else
                 {
                     float alpha = _beamTimer / beamDuration;
-                    _line.startColor = new Color(beamColor.r, beamColor.g, beamColor.b, alpha);
-                    _line.endColor = new Color(beamColor.r, beamColor.g, beamColor.b, 0f);
+                    _startColorCache = beamColor;
+                    _startColorCache.a = alpha;
+                    _line.startColor = _startColorCache;
+                    _line.endColor = _endColorCache;
                 }
             }
         }
@@ -104,17 +111,17 @@ namespace VS.Weapons
             Vector2 end = origin + fireDir * beamLength;
 
             float finalDamage = damage * (_playerStats?.DamageMultiplier ?? 1f);
-            RaycastHit2D[] hits = Physics2D.RaycastAll(origin, fireDir, beamLength);
-            foreach (var hit in hits)
+            int hitCount = Physics2D.RaycastNonAlloc(origin, fireDir, _raycastBuffer, beamLength);
+            for (int i = 0; i < hitCount; i++)
             {
-                EnemyBase enemy = hit.collider.GetComponent<EnemyBase>();
+                EnemyBase enemy = _raycastBuffer[i].collider.GetComponent<EnemyBase>();
                 enemy?.TakeDamage(finalDamage);
             }
 
             _line.SetPosition(0, origin);
             _line.SetPosition(1, end);
             _line.startColor = beamColor;
-            _line.endColor = new Color(beamColor.r, beamColor.g, beamColor.b, 0f);
+            _line.endColor = _endColorCache;
             _line.enabled = true;
             _beamTimer = beamDuration;
             _beamActive = true;

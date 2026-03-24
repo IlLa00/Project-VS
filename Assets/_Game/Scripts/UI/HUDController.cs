@@ -20,6 +20,7 @@ namespace VS.UI
         private PlayerXP _playerXP;
         private ProjectileWeapon _weaponBase;
         private KillCountManager _killCountManager;
+        private int _lastTimerSeconds = -1;
 
         void Start()
         {
@@ -48,6 +49,8 @@ namespace VS.UI
                 _killCountManager.OnKillCountChanged += UpdateKillCountText;
                 UpdateKillCountText(0);
             }
+
+            AdManager.Instance?.ShowBanner();
         }
 
         void OnDestroy()
@@ -69,7 +72,14 @@ namespace VS.UI
         {
             if (timerText != null && GameManager.Instance != null &&
                 GameManager.Instance.State == GameState.Playing)
-                timerText.text = GameManager.Instance.GetFormattedTime();
+            {
+                int currentSeconds = (int)GameManager.Instance.SurvivalTime;
+                if (currentSeconds != _lastTimerSeconds)
+                {
+                    _lastTimerSeconds = currentSeconds;
+                    timerText.text = GameManager.Instance.GetFormattedTime();
+                }
+            }
 
             if (cooldownSlider != null && _weaponBase != null)
                 cooldownSlider.value = _weaponBase.CooldownProgress;
@@ -90,13 +100,13 @@ namespace VS.UI
         private void UpdateLevelText(int level)
         {
             if (levelText != null)
-                levelText.text = $"Lv.{level}";
+                levelText.text = "Lv." + level;
         }
 
         private void UpdateKillCountText(int count)
         {
             if (killCountText != null)
-                killCountText.text = $"처치 {count}";
+                killCountText.text = "처치 " + count;
         }
     }
 }

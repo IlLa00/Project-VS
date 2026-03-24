@@ -33,6 +33,10 @@ namespace VS.Enemies
         private const int CircleSegments = 36;
         private const int ConeSegments = 16;
 
+        private WaitForSeconds _waitBombInterval;
+        private WaitForSeconds _waitConeInterval;
+        private WaitForSeconds _waitShortDelay;
+
         protected override void Awake()
         {
             base.Awake();
@@ -46,6 +50,10 @@ namespace VS.Enemies
 
             _coneRenderer = CreateLineRenderer(new Color(1f, 0.4f, 0f), 0.08f, ConeSegments + 3);
             _coneRenderer.gameObject.SetActive(false);
+
+            _waitBombInterval = new WaitForSeconds(bombInterval);
+            _waitConeInterval = new WaitForSeconds(coneInterval);
+            _waitShortDelay = new WaitForSeconds(0.25f);
         }
 
         protected override void OnEnable()
@@ -75,7 +83,7 @@ namespace VS.Enemies
         {
             while (true)
             {
-                yield return new WaitForSeconds(bombInterval);
+                yield return _waitBombInterval;
                 while (_isConeAttacking) yield return null;
                 _isBombAttacking = true;
                 yield return StartCoroutine(DoBombAttack());
@@ -126,7 +134,7 @@ namespace VS.Enemies
                 }
             }
 
-            yield return new WaitForSeconds(0.25f);
+            yield return _waitShortDelay;
             for (int i = 0; i < bombCount; i++)
                 _bombRenderers[i].gameObject.SetActive(false);
         }
@@ -137,7 +145,7 @@ namespace VS.Enemies
         {
             while (true)
             {
-                yield return new WaitForSeconds(coneInterval);
+                yield return _waitConeInterval;
                 while (_isBombAttacking) yield return null;
                 _isConeAttacking = true;
                 yield return StartCoroutine(DoConeAttack());
@@ -175,7 +183,7 @@ namespace VS.Enemies
                 }
             }
 
-            yield return new WaitForSeconds(0.25f);
+            yield return _waitShortDelay;
             _coneRenderer.gameObject.SetActive(false);
         }
 

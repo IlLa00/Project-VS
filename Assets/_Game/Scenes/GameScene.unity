@@ -2945,15 +2945,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29dfb2f815b78048b5511369417d779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmMainMenu: {fileID: 0}
   bgmGame: {fileID: 0}
   sfxPlayerHurt: {fileID: 0}
-  sfxEnemyHit: {fileID: 0}
-  sfxEnemyDie: {fileID: 0}
+  sfxPlayerDeath: {fileID: 0}
+  sfxPlayerHeal: {fileID: 0}
+  sfxEnemyHit: {fileID: 8300000, guid: a47579b3b221fce4ca6eeb69e75dd809, type: 3}
+  sfxEnemyDie: {fileID: 8300000, guid: 2c7748a1db982a24cb0e7520974d8439, type: 3}
+  sfxEliteSpawn: {fileID: 0}
+  sfxBossSpawn: {fileID: 0}
+  sfxBossAttack: {fileID: 0}
+  sfxEliteAttack: {fileID: 0}
+  sfxShoot: {fileID: 8300000, guid: 42d68175aa2c061429380a7ae1dc0a74, type: 3}
+  sfxBeamFire: {fileID: 8300000, guid: 83a51a415997c2745a96f510819208eb, type: 3}
+  sfxLightningStrike: {fileID: 0}
   sfxXpCollect: {fileID: 0}
   sfxLevelUp: {fileID: 0}
-  sfxGameOver: {fileID: 0}
-  sfxShoot: {fileID: 0}
-  sfxBossSpawn: {fileID: 0}
+  sfxUpgradeSelect: {fileID: 0}
+  sfxButtonClick: {fileID: 8300000, guid: fd8bc500abd00954b9c505459f897f88, type: 3}
+  sfxGameOver: {fileID: 8300000, guid: 270cfe5f881f2ec438653acbcafbdfa2, type: 3}
   defaultBgmVolume: 0.5
   defaultSfxVolume: 1
 --- !u!4 &1040289025

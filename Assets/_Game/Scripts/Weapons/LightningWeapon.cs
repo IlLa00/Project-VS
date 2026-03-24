@@ -26,6 +26,7 @@ namespace VS.Weapons
 
         private PlayerStats _playerStats;
         private ObjectPool<LightningStrike> _pool;
+        private static readonly Collider2D[] _overlapBuffer = new Collider2D[32];
 
         public int UpgradeLevel => _upgradeLevel;
         public bool CanUpgrade => _upgradeLevel < MAX_UPGRADE;
@@ -74,10 +75,10 @@ namespace VS.Weapons
             }
 
             float finalDamage = damage * (_playerStats?.DamageMultiplier ?? 1f);
-            Collider2D[] hits = Physics2D.OverlapCircleAll(strikePos, damageRadius);
-            foreach (var hit in hits)
+            int hitCount = Physics2D.OverlapCircleNonAlloc(strikePos, damageRadius, _overlapBuffer);
+            for (int i = 0; i < hitCount; i++)
             {
-                EnemyBase enemy = hit.GetComponent<EnemyBase>();
+                EnemyBase enemy = _overlapBuffer[i].GetComponent<EnemyBase>();
                 enemy?.TakeDamage(finalDamage);
             }
 

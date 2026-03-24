@@ -1,4 +1,5 @@
 using UnityEngine;
+using VS.Core;
 
 namespace VS.UI
 {
@@ -8,29 +9,32 @@ namespace VS.UI
 
         [SerializeField] private DamageFloater floaterPrefab;
         [SerializeField] private float spawnHeightOffset = 0.5f;
+        [SerializeField] private int preloadCount = 20;
+
+        private ObjectPool<DamageFloater> _pool;
 
         void Awake()
         {
-            if (Instance != null) 
-            { 
-                Destroy(gameObject); 
-                return; 
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
             }
             Instance = this;
         }
 
+        void Start()
+        {
+            if (floaterPrefab != null)
+                _pool = new ObjectPool<DamageFloater>(floaterPrefab, preloadCount, transform);
+        }
+
         public void Show(float damage, bool isKill, Vector3 worldPos)
         {
-            if (floaterPrefab == null) 
-                return;
-
-
-            DamageFloater floater = Instantiate(
-                floaterPrefab,
-                worldPos + Vector3.up * spawnHeightOffset,
-                Quaternion.identity);
-                
-            floater.Init(damage, isKill);
+            if (_pool == null) return;
+            DamageFloater floater = _pool.Get();
+            floater.transform.position = worldPos + Vector3.up * spawnHeightOffset;
+            floater.Init(damage, isKill, () => _pool.Return(floater));
         }
     }
 }
