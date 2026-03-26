@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -76,7 +77,9 @@ namespace VS.UI
 
         private void ShowPanel()
         {
+            panel.transform.localScale = Vector3.zero;
             panel.SetActive(true);
+            panel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
 
             if (survivalTimeText != null && GameManager.Instance != null)
                 survivalTimeText.text = $"생존 시간\n{GameManager.Instance.GetFormattedTime()}";

@@ -88,6 +88,7 @@ namespace VS.Core
         {
             if (Instance != null) { Destroy(gameObject); return; }
             Instance = this;
+            DontDestroyOnLoad(gameObject);
 
             _bgmVolume = PlayerPrefs.GetFloat(KeyBgmVolume, defaultBgmVolume);
             _sfxVolume = PlayerPrefs.GetFloat(KeySfxVolume, defaultSfxVolume);
@@ -126,6 +127,11 @@ namespace VS.Core
         {
             GameManager.OnStateChanged -= HandleStateChanged;
             EnemySpawner.OnBossSpawned -= HandleBossSpawned;
+        }
+
+        void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
         }
 
         private void HandleStateChanged(GameState state)

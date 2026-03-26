@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -36,7 +37,20 @@ namespace VS.UI
         private void OnStateChanged(GameState state)
         {
             pauseButton.gameObject.SetActive(state == GameState.Playing);
-            pausePanel.SetActive(state == GameState.Paused);
+
+            if (state == GameState.Paused)
+            {
+                pausePanel.transform.DOKill();
+                pausePanel.transform.localScale = Vector3.zero;
+                pausePanel.SetActive(true);
+                pausePanel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
+            }
+            else
+            {
+                pausePanel.transform.DOKill();
+                pausePanel.transform.DOScale(Vector3.zero, 0.15f).SetEase(Ease.InBack).SetUpdate(true)
+                    .OnComplete(() => pausePanel.SetActive(false));
+            }
         }
 
         private void OnPauseClicked()

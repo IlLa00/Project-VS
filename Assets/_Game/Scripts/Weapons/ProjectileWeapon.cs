@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using VS.Core;
 using VS.Data;
 using VS.Enemies;
@@ -8,7 +10,7 @@ namespace VS.Weapons
 {
     public class ProjectileWeapon : MonoBehaviour, IUpgradableWeapon
     {
-        [SerializeField] private Projectile projectilePrefab;
+        [SerializeField] private AssetReferenceGameObject projectilePrefabRef;
         [SerializeField] private WeaponData data;
 
         private const int MAX_UPGRADE = 5;
@@ -19,6 +21,8 @@ namespace VS.Weapons
         private PlayerStats _playerStats;
         private int _upgradeLevel;
         private int _projectileCount = 1;
+        private Projectile _projectilePrefab;
+        private AsyncOperationHandle<GameObject> _handle;
 
         public int UpgradeLevel => _upgradeLevel;
         public bool CanUpgrade => _upgradeLevel < MAX_UPGRADE;
@@ -27,7 +31,7 @@ namespace VS.Weapons
         {
             get
             {
-                if (data == null) 
+                if (data == null)
                     return 0f;
 
                 float interval = 1f / (data.fireRate * (_playerStats?.FireRateMultiplier ?? 1f));
@@ -38,6 +42,23 @@ namespace VS.Weapons
         void Awake()
         {
             _playerStats = GetComponentInParent<PlayerStats>();
+            _handle = projectilePrefabRef.LoadAssetAsync<GameObject>();
+            _handle.Completed += handle =>
+            {
+                if (handle.Status != AsyncOperationStatus.Succeeded)
+                {
+                    Debug.LogError("Projectile 프리팹 로드 실패");
+                    return;
+                }
+                _projectilePrefab = handle.Result.GetComponent<Projectile>();
+                InitPool();
+            };
+        }
+
+        void OnDestroy()
+        {
+            if (_handle.IsValid())
+                Addressables.Release(_handle);
         }
 
         void Start()
@@ -53,10 +74,10 @@ namespace VS.Weapons
 
         private void InitPool()
         {
-            if (projectilePrefab == null || data == null) 
+            if (_projectilePrefab == null || data == null || _pool != null)
                 return;
 
-            _pool = new ObjectPool<Projectile>(projectilePrefab, 20, transform);
+            _pool = new ObjectPool<Projectile>(_projectilePrefab, 20, transform);
         }
 
         void Update()

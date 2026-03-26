@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: 
+  m_GroupName: Enemies
+  m_GUID: e78a169e6aa2d9d44b54729109341833
+  m_SerializeEntries:
+  - m_GUID: 25bc926a29fdc0e40995c6fad8d40df4
+    m_Address: Enemies/EliteEnemy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e7041ef81dee564a89a8660cf907d50
+    m_Address: Enemies/EnemyProjectile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3521c978700e3d64588f4d2971fd3c64
+    m_Address: Enemies/BossEnemy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac1ba6019b56a0d4dbdbd70b5c80a340
+    m_Address: Enemies/Enemy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 666aed90ad0d613419ebb8cdf8e2f9ce, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7c86dcc117ca6a24790d75040a0f1c2d, type: 2}
+    - {fileID: 11400000, guid: 156ab0bcb0d699048a061877200a693c, type: 2}

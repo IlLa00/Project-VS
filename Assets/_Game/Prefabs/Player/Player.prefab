@@ -205,4 +205,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startWeapons:
-  - {fileID: 11400000, guid: 8933baf3b8ec760489c3ed3aa9744ad3, type: 2}
+  - {fileID: 11400000, guid: 326c9ec433c06854c8c83855f2bf823a, type: 2}
