@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace VS.Weapons
 {
@@ -14,12 +17,31 @@ namespace VS.Weapons
 
         private Sprite[] _frames;
         private int _frameCount;
+        private AsyncOperationHandle<IList<Sprite>> _handle;
 
         void Awake()
         {
             _sr = GetComponent<SpriteRenderer>();
-            _frames = Resources.LoadAll<Sprite>("Weapons/LightningStrike");
-            _frameCount = _frames?.Length ?? 0;
+            _handle = Addressables.LoadAssetsAsync<Sprite>("LightningStrikeFrames", null);
+            _handle.Completed += OnFramesLoaded;
+        }
+
+        private void OnFramesLoaded(AsyncOperationHandle<IList<Sprite>> handle)
+        {
+            if (handle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError("LightningStrike 스프라이트 로드 실패");
+                return;
+            }
+            _frames = new Sprite[handle.Result.Count];
+            handle.Result.CopyTo(_frames, 0);
+            _frameCount = _frames.Length;
+        }
+
+        void OnDestroy()
+        {
+            if (_handle.IsValid())
+                Addressables.Release(_handle);
         }
 
         void OnEnable()
@@ -29,6 +51,11 @@ namespace VS.Weapons
 
         public void Play(Action onComplete)
         {
+            if (_frameCount == 0)
+            {
+                onComplete?.Invoke();
+                return;
+            }
             _onComplete = onComplete;
             _timer = lifetime;
             _playing = true;

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -46,8 +47,10 @@ namespace VS.UI
 
         private void UpdateBar(float current, float max)
         {
-            if (hpSlider != null)
-                hpSlider.value = max > 0f ? current / max : 0f;
+            if (hpSlider == null) return;
+            float target = max > 0f ? current / max : 0f;
+            hpSlider.DOKill();
+            hpSlider.DOValue(target, 0.3f).SetEase(Ease.OutCubic);
         }
 
         private void HidePanel()

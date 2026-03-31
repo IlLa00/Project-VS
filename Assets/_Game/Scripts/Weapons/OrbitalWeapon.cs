@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using VS.Core;
 using VS.Enemies;
 
@@ -9,16 +11,15 @@ namespace VS.Weapons
     {
         [Header("회전 설정")]
         [SerializeField] private float orbitRadius = 2f;
-        [SerializeField] private float rotationSpeed = 180f; 
+        [SerializeField] private float rotationSpeed = 180f;
 
         [Header("피해 설정")]
         [SerializeField] private float damage = 15f;
-        [SerializeField] private float hitInterval = 0.5f; 
+        [SerializeField] private float hitInterval = 0.5f;
 
         [Header("오브 외형")]
         [SerializeField] private float orbSize = 0.25f;
         [SerializeField] private Color orbColor = Color.cyan;
-        [SerializeField] private Sprite orbSprite;
 
         public float Damage => damage;
         public float HitInterval => hitInterval;
@@ -32,12 +33,28 @@ namespace VS.Weapons
 
         private readonly List<Transform> _orbs = new List<Transform>();
         private float _angle;
+        private Sprite _orbSprite;
+        private AsyncOperationHandle<Sprite> _handle;
 
         void Awake()
         {
-            if (orbSprite == null)
-                orbSprite = Resources.Load<Sprite>("Weapons/Orbital");
-            AddOrb();
+            _handle = Addressables.LoadAssetAsync<Sprite>("Weapons/Orbital");
+            _handle.Completed += handle =>
+            {
+                if (handle.Status != AsyncOperationStatus.Succeeded)
+                {
+                    Debug.LogError("Orbital 스프라이트 로드 실패");
+                    return;
+                }
+                _orbSprite = handle.Result;
+                AddOrb();
+            };
+        }
+
+        void OnDestroy()
+        {
+            if (_handle.IsValid())
+                Addressables.Release(_handle);
         }
 
         void Update()
@@ -69,7 +86,7 @@ namespace VS.Weapons
             go.transform.SetParent(transform);
 
             var sr = go.AddComponent<SpriteRenderer>();
-            sr.sprite = orbSprite;
+            sr.sprite = _orbSprite;
             sr.color = orbColor;
             go.transform.localScale = Vector3.one * (orbSize * 2f);
 

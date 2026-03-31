@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Resource-Weapons-Orbital
+  m_EditorClassIdentifier: 
+  m_GroupName: Resource-Weapons-Orbital
+  m_GUID: 7b2d03c28a7b2af429ff80cb55f86eee
+  m_SerializeEntries:
+  - m_GUID: abaeeb17ebbb95c4bb240e04b2aefde3
+    m_Address: Weapons/Orbital
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - OrbitalFrames
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 666aed90ad0d613419ebb8cdf8e2f9ce, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6cd8f8dc61f590c489ed7a66ef2a188d, type: 2}
+    - {fileID: 11400000, guid: 1df43956d80c4c748962b9e64caae96f, type: 2}

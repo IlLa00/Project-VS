@@ -21,6 +21,7 @@ namespace VS.UI
             ShowBestTime();
             ShowBestKillCount();
             AdManager.Instance?.ShowBanner();
+            SoundManager.Instance?.PlayMainMenuBGM();
         }
 
         private void OnStartClicked()
