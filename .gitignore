@@ -73,6 +73,10 @@ mono_crash.*
 *.unitypackage.meta
 *.app
 
+# Firebase native binaries (100MB+, reinstall Firebase SDK to restore)
+*.bundle
+*.so
+
 # Crashlytics generated file
 crashlytics-build.properties
 

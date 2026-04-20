@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Resource-Weapons-Orbital
   m_GUID: 7b2d03c28a7b2af429ff80cb55f86eee
-  m_SerializeEntries:
-  - m_GUID: abaeeb17ebbb95c4bb240e04b2aefde3
-    m_Address: Weapons/Orbital
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - OrbitalFrames
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 666aed90ad0d613419ebb8cdf8e2f9ce, type: 2}
   m_SchemaSet:

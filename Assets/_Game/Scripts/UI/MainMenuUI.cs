@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 using VS.Core;
 
@@ -11,22 +10,22 @@ namespace VS.UI
         [SerializeField] private Button startButton;
         [SerializeField] private TextMeshProUGUI bestTimeText;
         [SerializeField] private TextMeshProUGUI bestKillCountText;
-
-        [Header("씬 이름")]
-        [SerializeField] private string gameSceneName = "GameScene";
+        [SerializeField] private GameObject weaponSelectPanel;
+        [SerializeField] private Button leaderboardButton;
+        [SerializeField] private GameObject leaderboardPanel;
 
         void Start()
         {
             startButton.onClick.AddListener(OnStartClicked);
+            leaderboardButton.onClick.AddListener(() => leaderboardPanel.SetActive(true));
             ShowBestTime();
             ShowBestKillCount();
-            AdManager.Instance?.ShowBanner();
             SoundManager.Instance?.PlayMainMenuBGM();
         }
 
         private void OnStartClicked()
         {
-            SceneManager.LoadScene(gameSceneName);
+            weaponSelectPanel.SetActive(true);
         }
 
         private void ShowBestTime()

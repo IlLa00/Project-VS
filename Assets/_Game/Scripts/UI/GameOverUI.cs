@@ -1,4 +1,3 @@
-using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -40,7 +39,7 @@ namespace VS.UI
             }
 
             SaveRecords();
-            StartCoroutine(ShowInterstitialThenPanel());
+            ShowPanel();
         }
 
         private void SaveRecords()
@@ -54,25 +53,30 @@ namespace VS.UI
                     PlayerPrefs.Save();
                 }
             }
+
             KillCountManager.Instance?.SaveBestKillCount();
+            SubmitToLeaderboard();
         }
 
-        private IEnumerator ShowInterstitialThenPanel()
+        private async void SubmitToLeaderboard()
         {
-            var adManager = AdManager.Instance;
-            if (adManager != null && adManager.IsInterstitialReady)
+            string playerName = PlayerPrefs.GetString("PlayerName", "");
+            if (string.IsNullOrEmpty(playerName))
             {
-                bool closed = false;
-                adManager.ShowInterstitial(() => closed = true);
-                float elapsed = 0f;
-                while (!closed && elapsed < 3f)
-                {
-                    elapsed += Time.unscaledDeltaTime;
-                    yield return null;
-                }
+                Debug.LogWarning("[Leaderboard] 닉네임 없음 — 업로드 스킵");
+                return;
             }
 
-            ShowPanel();
+            var lm = LeaderboardManager.Instance;
+            if (lm == null)
+            {
+                Debug.LogWarning("[Leaderboard] LeaderboardManager 없음 — MenuScene부터 시작했는지 확인");
+                return;
+            }
+
+            int killCount = PlayerPrefs.GetInt("BestKillCount", 0);
+            float survivalTime = PlayerPrefs.GetFloat("BestTime", 0f);
+            await lm.SubmitScore(playerName, killCount, survivalTime);
         }
 
         private void ShowPanel()

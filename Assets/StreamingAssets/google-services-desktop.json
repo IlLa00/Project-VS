@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "191620592601",
+    "project_id": "project-vs-4f26c",
+    "storage_bucket": "project-vs-4f26c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191620592601:android:4cc9f2f0d92e20aa555fc8",
+        "android_client_info": {
+          "package_name": "com.HYPEGames.AlienSurvivor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC54pWr6E0fFJez3YXjYAaxk2LzPADmYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

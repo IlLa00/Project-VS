@@ -22,8 +22,17 @@ namespace VS.Weapons
 
         void Start()
         {
-            foreach (var data in startWeapons)
-                AddWeapon(data);
+            var selected = VS.Core.WeaponSelectManager.SelectedWeapon;
+            if (selected != null)
+            {
+                AddWeapon(selected);
+                VS.Core.WeaponSelectManager.Clear();
+            }
+            else
+            {
+                foreach (var data in startWeapons)
+                    AddWeapon(data);
+            }
         }
 
         public void AddWeapon(WeaponAcquireData data)

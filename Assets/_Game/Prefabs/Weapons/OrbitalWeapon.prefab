@@ -48,6 +48,6 @@ MonoBehaviour:
   rotationSpeed: 180
   damage: 15
   hitInterval: 0.5
+  orbSprite: {fileID: 21300000, guid: abaeeb17ebbb95c4bb240e04b2aefde3, type: 3}
   orbSize: 0.25
   orbColor: {r: 1, g: 1, b: 1, a: 1}
-  orbSprite: {fileID: 8035846199741911483, guid: abaeeb17ebbb95c4bb240e04b2aefde3, type: 3}
