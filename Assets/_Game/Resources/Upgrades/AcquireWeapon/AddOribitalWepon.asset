@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: "\uC624\uBE44\uD0C8 \uBB34\uAE30"
   description: "\uB3C8\uB2E4 \uB3CC\uC544\u314F"
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: abaeeb17ebbb95c4bb240e04b2aefde3, type: 3}
   weaponPrefab: {fileID: 87010273158581302, guid: 43bd24d6b9bb3de4f99d0490b623d627, type: 3}

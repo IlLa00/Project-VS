@@ -13,10 +13,15 @@ namespace VS.XP
         private Transform _player;
         private PlayerXP _playerXP;
 
+        private bool _isAttracted;
+
         private const float COLLECT_SQR_RADIUS = 0.5f * 0.5f;
+        private const float ATTRACT_SPEED = 12f;
 
         void OnEnable()
         {
+            _isAttracted = false;
+
             var pc = PlayerController.Instance;
             if (pc != null)
             {
@@ -31,17 +36,28 @@ namespace VS.XP
             _returnToPool = returnToPool;
         }
 
+        public void Attract()
+        {
+            _isAttracted = true;
+        }
+
         void Update()
         {
-            if (GameManager.Instance?.State != GameState.Playing) 
+            if (GameManager.Instance?.State != GameState.Playing)
                 return;
 
-            if (_player == null) 
+            if (_player == null)
                 return;
+
+            if (_isAttracted)
+            {
+                transform.position = Vector2.MoveTowards(
+                    transform.position,
+                    _player.position,
+                    ATTRACT_SPEED * Time.deltaTime);
+            }
 
             float sqrDist = ((Vector2)_player.position - (Vector2)transform.position).sqrMagnitude;
-
-            // 플레이어가 직접 닿으면 XP 지급 후 풀 반환
             if (sqrDist <= COLLECT_SQR_RADIUS)
             {
                 _playerXP?.AddXP(_xpAmount);

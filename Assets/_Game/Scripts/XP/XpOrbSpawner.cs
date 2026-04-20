@@ -1,33 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 using VS.Core;
 
 namespace VS.XP
 {
-    public class XpOrbSpawner : MonoBehaviour
+    public class XpOrbSpawner : PickupSpawnerBase<XpOrb>
     {
         public static XpOrbSpawner Instance { get; private set; }
 
-        [SerializeField] private XpOrb orbPrefab;
-        [SerializeField] private int preloadCount = 50;
+        private readonly HashSet<XpOrb> _activeOrbs = new HashSet<XpOrb>();
 
-        private ObjectPool<XpOrb> _pool;
-
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Instance = this;
-            _pool = new ObjectPool<XpOrb>(orbPrefab, preloadCount, transform);
         }
 
         public void Spawn(Vector2 position, float xpAmount)
         {
-            XpOrb orb = _pool.Get();
+            XpOrb orb = Pool.Get();
             orb.transform.position = position;
             orb.Init(xpAmount, ReturnOrb);
+            _activeOrbs.Add(orb);
         }
 
         private void ReturnOrb(XpOrb orb)
         {
-            _pool.Return(orb);
+            _activeOrbs.Remove(orb);
+            ReturnToPool(orb);
         }
+
+        public IReadOnlyCollection<XpOrb> GetActiveOrbs() => _activeOrbs;
     }
 }
