@@ -1,7 +1,7 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using VS.Core;
 using VS.Data;
 
@@ -9,13 +9,11 @@ namespace VS.UI
 {
     public class WeaponSelectPanel : MonoBehaviour
     {
+        public static event Action OnWeaponConfirmed;
         [SerializeField] private WeaponAcquireData[] selectableWeapons;
         [SerializeField] private Transform slotContainer;
         [SerializeField] private WeaponSelectSlotUI slotPrefab;
         [SerializeField] private Button confirmButton;
-
-        [Header("씬 이름")]
-        [SerializeField] private string gameSceneName = "GameScene";
 
         private WeaponSelectSlotUI _selectedSlot;
 
@@ -60,7 +58,8 @@ namespace VS.UI
                 .OnComplete(() =>
                 {
                     WeaponSelectManager.Select(_selectedSlot.Data);
-                    SceneManager.LoadScene(gameSceneName);
+                    gameObject.SetActive(false);
+                    OnWeaponConfirmed?.Invoke();
                 });
         }
     }

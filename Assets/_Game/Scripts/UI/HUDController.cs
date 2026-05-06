@@ -15,6 +15,7 @@ namespace VS.UI
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI killCountText;
+        [SerializeField] private OpponentStatusUI opponentStatusUI;
 
         private PlayerStats _playerStats;
         private PlayerXP _playerXP;
@@ -49,6 +50,9 @@ namespace VS.UI
                 _killCountManager.OnKillCountChanged += UpdateKillCountText;
                 UpdateKillCountText(0);
             }
+
+            if (opponentStatusUI != null)
+                opponentStatusUI.gameObject.SetActive(Battle.BattleRoomManager.Instance != null);
 
             AdManager.Instance?.ShowBanner();
         }

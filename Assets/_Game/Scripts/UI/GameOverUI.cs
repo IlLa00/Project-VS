@@ -38,6 +38,8 @@ namespace VS.UI
                 return;
             }
 
+            if (Battle.BattleRoomManager.Instance != null) return;
+
             SaveRecords();
             ShowPanel();
         }

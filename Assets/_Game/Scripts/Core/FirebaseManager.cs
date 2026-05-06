@@ -1,5 +1,6 @@
 using Firebase;
 using Firebase.Auth;
+using Firebase.Database;
 using Firebase.Firestore;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace VS.Core
         public string UserId { get; private set; }
         public bool IsReady { get; private set; }
         public FirebaseFirestore Db { get; private set; }
+        public FirebaseDatabase Rtdb { get; private set; }
 
         void Awake()
         {
@@ -44,6 +46,7 @@ namespace VS.Core
                     }
                     UserId = authTask.Result.User.UserId;
                     Db = FirebaseFirestore.DefaultInstance;
+                    Rtdb = FirebaseDatabase.DefaultInstance;
                     IsReady = true;
                     Debug.Log($"[Firebase] Ready. UID={UserId}");
                 });

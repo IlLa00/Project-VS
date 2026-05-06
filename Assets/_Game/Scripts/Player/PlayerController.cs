@@ -73,7 +73,10 @@ namespace VS.Player
                     if (_deathAnimFrame >= deathFrames.Length)
                     {
                         _isDying = false;
-                        GameManager.Instance?.TriggerGameOver();
+                        if (Battle.BattleRoomManager.Instance != null)
+                            Battle.BattleRoomManager.Instance.ReportMyDeath();
+                        else
+                            GameManager.Instance?.TriggerGameOver();
                         return;
                     }
                     if (spriteRenderer != null)
