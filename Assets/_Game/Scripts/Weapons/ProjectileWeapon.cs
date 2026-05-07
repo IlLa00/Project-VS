@@ -77,6 +77,13 @@ namespace VS.Weapons
             _projectileCount++;
         }
 
+        public void Downgrade()
+        {
+            if (_upgradeLevel <= 0) return;
+            _upgradeLevel--;
+            _projectileCount--;
+        }
+
         private void Fire()
         {
             SoundManager.Instance?.Play(SoundType.Shoot);

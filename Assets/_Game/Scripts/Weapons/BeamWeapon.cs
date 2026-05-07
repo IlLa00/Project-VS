@@ -136,5 +136,13 @@ namespace VS.Weapons
             damage *= 1.2f;
             beamLength += 2f;
         }
+
+        public void Downgrade()
+        {
+            if (_upgradeLevel <= 0) return;
+            _upgradeLevel--;
+            damage /= 1.2f;
+            beamLength -= 2f;
+        }
     }
 }

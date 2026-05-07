@@ -50,7 +50,7 @@ namespace VS.Weapons
 
         public void Upgrade()
         {
-            if (!CanUpgrade) 
+            if (!CanUpgrade)
                 return;
 
             _upgradeLevel++;
@@ -59,6 +59,22 @@ namespace VS.Weapons
 
             if (_upgradeLevel >= MAX_UPGRADE)
                 rotationSpeed = MAX_ROTATION_SPEED;
+        }
+
+        public void Downgrade()
+        {
+            if (_upgradeLevel <= 0) return;
+            _upgradeLevel--;
+            RemoveOrb();
+        }
+
+        private void RemoveOrb()
+        {
+            if (_orbs.Count == 0) return;
+            int last = _orbs.Count - 1;
+            Destroy(_orbs[last].gameObject);
+            _orbs.RemoveAt(last);
+            RefreshOrbPositions();
         }
 
         public void AddOrb()

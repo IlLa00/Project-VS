@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VS.Battle;
 using VS.Enemies;
 
 namespace VS.Core
@@ -35,6 +36,7 @@ namespace VS.Core
         {
             KillCount++;
             OnKillCountChanged?.Invoke(KillCount);
+            BattleRoomManager.Instance?.ReportKill();
         }
 
         public void SaveBestKillCount()

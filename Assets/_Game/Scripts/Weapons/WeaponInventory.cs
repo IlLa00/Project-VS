@@ -45,5 +45,16 @@ namespace VS.Weapons
             _weapons.Add(new WeaponEntry { Weapon = weapon, Data = data });
             OnWeaponsChanged?.Invoke();
         }
+
+        public void DowngradeRandomWeapon()
+        {
+            var candidates = new System.Collections.Generic.List<IUpgradableWeapon>();
+            foreach (var entry in _weapons)
+                if (entry.Weapon != null && entry.Weapon.UpgradeLevel > 0)
+                    candidates.Add(entry.Weapon);
+
+            if (candidates.Count == 0) return;
+            candidates[UnityEngine.Random.Range(0, candidates.Count)].Downgrade();
+        }
     }
 }

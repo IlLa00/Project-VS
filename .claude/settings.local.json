@@ -9,7 +9,19 @@
       "Bash(git checkout *)",
       "Bash(git cherry-pick *)",
       "Bash(git add *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(dir:*)",
+      "Bash(cmd:*)",
+      "Bash(powershell:*)",
+      "Bash(echo EXIT: $?:*)",
+      "Bash(test:*)",
+      "Bash(python3:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(ls:*)",
+      "Bash(git:*)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(del:*)",
+      "Bash(powershell.exe:*)"
     ]
   }
 }

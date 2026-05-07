@@ -5,7 +5,9 @@ using Firebase.Database;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VS.Core;
+using VS.Enemies;
 using VS.Player;
+using VS.Weapons;
 
 namespace VS.Battle
 {
@@ -15,6 +17,7 @@ namespace VS.Battle
 
         public static event Action<float, float> OnOpponentHpChanged;
         public static event Action<bool> OnBattleResult;
+        public static event Action<string> OnAttackReceived;
 
         private string _roomId;
         private string _myUid;
@@ -25,6 +28,8 @@ namespace VS.Battle
         private DatabaseReference _myPlayerRef;
         private DatabaseReference _opponentPlayerRef;
         private DatabaseReference _attacksRef;
+        private DatabaseReference _wavesRef;
+        private DatabaseReference _cardPhaseRef;
 
         private bool _isPrepared;
         private bool _battleActive;
@@ -32,6 +37,10 @@ namespace VS.Battle
 
         private float _lastOpponentHeartbeat;
         private bool _myDeathReported;
+
+        private int _myKillCount;
+        private int _cardRoundIndex;
+        private bool _myCardReady;
 
         public string OpponentNickname => _opponentNickname;
 
@@ -63,11 +72,16 @@ namespace VS.Battle
             _battleActive = false;
             _resultShown = false;
             _myDeathReported = false;
+            _myKillCount = 0;
+            _cardRoundIndex = 0;
+            _myCardReady = false;
 
             var db = FirebaseManager.Instance.Rtdb;
             _myPlayerRef = db.GetReference($"rooms/{_roomId}/players/{_myUid}");
             _opponentPlayerRef = db.GetReference($"rooms/{_roomId}/players/{_opponentUid}");
             _attacksRef = db.GetReference($"rooms/{_roomId}/attacks");
+            _wavesRef = db.GetReference($"rooms/{_roomId}/waves");
+            _cardPhaseRef = db.GetReference($"rooms/{_roomId}/cardPhase");
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -93,6 +107,9 @@ namespace VS.Battle
             StartCoroutine(HeartbeatCoroutine());
             StartCoroutine(DisconnectCheckCoroutine());
             _opponentPlayerRef.ValueChanged += OnOpponentStatusChanged;
+            _attacksRef.ChildAdded += OnAttackChildAdded;
+            _wavesRef.ChildAdded += OnWaveChildAdded;
+            _cardPhaseRef.ValueChanged += OnCardPhaseChanged;
         }
 
         private IEnumerator HeartbeatCoroutine()
@@ -110,9 +127,7 @@ namespace VS.Battle
             {
                 yield return new WaitForSeconds(1f);
                 if (Time.time - _lastOpponentHeartbeat > 5f)
-                {
                     HandleResult(true);
-                }
             }
         }
 
@@ -138,6 +153,86 @@ namespace VS.Battle
                 DetermineResult();
         }
 
+        private void OnAttackChildAdded(object sender, ChildChangedEventArgs e)
+        {
+            if (!_battleActive || e.DatabaseError != null || !e.Snapshot.Exists) return;
+
+            string type = e.Snapshot.Child("type").Value as string;
+            if (string.IsNullOrEmpty(type)) return;
+
+            UnityMainThreadDispatcher.Enqueue(() =>
+            {
+                if (type == "spawn_surge")
+                {
+                    float multiplier = Convert.ToSingle(e.Snapshot.Child("multiplier").Value ?? 3f);
+                    float duration = Convert.ToSingle(e.Snapshot.Child("duration").Value ?? 10f);
+                    EnemySpawner.Instance?.ApplySpawnSurge(multiplier, duration);
+                    OnAttackReceived?.Invoke("스폰 증가 공격을 받았습니다!");
+                }
+                else if (type == "weapon_downgrade")
+                {
+                    var inventory = FindFirstObjectByType<WeaponInventory>();
+                    inventory?.DowngradeRandomWeapon();
+                    OnAttackReceived?.Invoke("무기 다운그레이드 공격을 받았습니다!");
+                }
+            });
+        }
+
+        private void OnWaveChildAdded(object sender, ChildChangedEventArgs e)
+        {
+            if (!_battleActive || e.DatabaseError != null || !e.Snapshot.Exists) return;
+
+            int count = Convert.ToInt32(e.Snapshot.Child("count").Value ?? 5);
+            UnityMainThreadDispatcher.Enqueue(() => StartCoroutine(ForceSpawnAfterDelay(count)));
+        }
+
+        private IEnumerator ForceSpawnAfterDelay(int count)
+        {
+            yield return new WaitForSeconds(0.5f);
+            EnemySpawner.Instance?.ForceSpawn(count);
+        }
+
+        private void OnCardPhaseChanged(object sender, ValueChangedEventArgs e)
+        {
+            if (!_battleActive || e.DatabaseError != null || !e.Snapshot.Exists) return;
+
+            var opponentReady = e.Snapshot.Child(_opponentUid).Child("ready").Value;
+            if (opponentReady != null && (bool)opponentReady && _myCardReady)
+            {
+                UnityMainThreadDispatcher.Enqueue(() => GameManager.Instance?.ResumePlaying());
+            }
+        }
+
+        public void ReportKill()
+        {
+            if (!_battleActive) return;
+            _myKillCount++;
+            if (_myKillCount % 5 == 0)
+            {
+                var waveData = new Dictionary<string, object>
+                {
+                    { "count", 5 },
+                    { "timestamp", ServerValue.Timestamp }
+                };
+                _wavesRef.Push().SetValueAsync(waveData);
+            }
+        }
+
+        public void StartCardPhase(int roundIndex)
+        {
+            if (!_battleActive) return;
+            _myCardReady = false;
+            _cardPhaseRef.Child("roundIndex").SetValueAsync(roundIndex);
+            _cardPhaseRef.Child(_myUid).Child("ready").SetValueAsync(false);
+        }
+
+        public void ReportCardSelected()
+        {
+            if (!_battleActive) return;
+            _myCardReady = true;
+            _cardPhaseRef.Child(_myUid).Child("ready").SetValueAsync(true);
+        }
+
         private void DetermineResult()
         {
             if (_myDeathReported)
@@ -150,7 +245,6 @@ namespace VS.Battle
                             ? Convert.ToInt64(myTask.Result.Value) : long.MaxValue;
                         long oppTs = oppTask.IsCompletedSuccessfully && oppTask.Result.Exists
                             ? Convert.ToInt64(oppTask.Result.Value) : long.MaxValue;
-
                         HandleResult(myTs > oppTs);
                     });
                 });
@@ -168,6 +262,9 @@ namespace VS.Battle
             _battleActive = false;
 
             _opponentPlayerRef.ValueChanged -= OnOpponentStatusChanged;
+            _attacksRef.ChildAdded -= OnAttackChildAdded;
+            _wavesRef.ChildAdded -= OnWaveChildAdded;
+            _cardPhaseRef.ValueChanged -= OnCardPhaseChanged;
 
             FirebaseDatabase.DefaultInstance
                 .GetReference($"rooms/{_roomId}/winner")

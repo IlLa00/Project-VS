@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using VS.Core;
 using VS.Data;
-using VS.Items;
 using VS.Player;
 using VS.UI;
-using VS.XP;
 
 namespace VS.Enemies
 {
@@ -206,11 +204,6 @@ namespace VS.Enemies
 
             OnDied?.Invoke();
             OnAnyEnemyDied?.Invoke();
-            XpOrbSpawner.Instance?.Spawn(transform.position, _data.xpDrop);
-
-            if (_data.enemyType == EnemyType.Normal)
-                MagnetItemSpawner.Instance?.TrySpawn(transform.position);
-
             _onDeath?.Invoke(this);
         }
     }

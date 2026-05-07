@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using VS.Core;
 using VS.Player;
-using VS.XP;
 
 namespace VS.Items
 {
@@ -36,18 +35,9 @@ namespace VS.Items
             float sqrDist = ((Vector2)_player.position - (Vector2)transform.position).sqrMagnitude;
             if (sqrDist <= COLLECT_SQR_RADIUS)
             {
-                AttractAllOrbs();
                 _returnToPool?.Invoke(this);
             }
         }
 
-        private void AttractAllOrbs()
-        {
-            if (XpOrbSpawner.Instance == null)
-                return;
-
-            foreach (var orb in XpOrbSpawner.Instance.GetActiveOrbs())
-                orb.Attract();
-        }
     }
 }

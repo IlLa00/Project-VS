@@ -4,5 +4,6 @@ namespace VS.Weapons
     {
         int UpgradeLevel { get; }
         bool CanUpgrade { get; }
+        void Downgrade();
     }
 }

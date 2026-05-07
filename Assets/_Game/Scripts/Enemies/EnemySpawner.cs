@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using VS.Core;
 using VS.Data;
@@ -7,6 +8,7 @@ namespace VS.Enemies
 {
     public class EnemySpawner : MonoBehaviour
     {
+        public static EnemySpawner Instance { get; private set; }
         [Header("프리팹 & 데이터")]
         [SerializeField] private EnemyBase enemyPrefab;
         [SerializeField] private EnemyData[] enemyTypes;
@@ -41,6 +43,12 @@ namespace VS.Enemies
         private float _bossTimer;
         private float _eliteTimer;
         private Camera _mainCamera;
+
+        void Awake()
+        {
+            if (Instance != null) { Destroy(gameObject); return; }
+            Instance = this;
+        }
 
         void Start()
         {
@@ -168,6 +176,30 @@ namespace VS.Enemies
         {
             float time = GameManager.Instance?.SurvivalTime ?? 0f;
             return Mathf.Clamp01(time / rampDuration);
+        }
+
+        public void ForceSpawn(int count)
+        {
+            int toSpawn = Mathf.Min(count, maxEnemies - EnemyBase.ActiveEnemies.Count);
+            for (int i = 0; i < toSpawn; i++)
+                SpawnNormalOrElite();
+        }
+
+        public void ApplySpawnSurge(float multiplier, float duration)
+        {
+            StartCoroutine(SpawnSurgeCoroutine(multiplier, duration));
+        }
+
+        private IEnumerator SpawnSurgeCoroutine(float multiplier, float duration)
+        {
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                float dt = Time.deltaTime;
+                elapsed += dt;
+                _spawnTimer -= dt * (multiplier - 1f);
+                yield return null;
+            }
         }
 
         private void ReturnToPool(EnemyBase enemy)

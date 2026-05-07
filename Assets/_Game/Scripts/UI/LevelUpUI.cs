@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Text;
 using DG.Tweening;
 using UnityEngine;
 using TMPro;
+using VS.Battle;
 using VS.Core;
 using VS.Data;
 using VS.Player;
-using VS.Weapons;
 
 namespace VS.UI
 {
@@ -14,14 +13,17 @@ namespace VS.UI
     {
         [SerializeField] private GameObject panel;
         [SerializeField] private UpgradeCardUI[] cards;
-        [SerializeField] private TextMeshProUGUI adviceText;
+        [SerializeField] private GameObject waitingText;
 
         private UpgradeDataBase[] _allUpgrades;
-        private readonly List<UpgradeDataBase> _applicableBuffer = new List<UpgradeDataBase>();
+        private AttackCardDataBase[] _allAttackCards;
+        private readonly List<ICardData> _pool = new List<ICardData>();
+        private int _roundIndex;
 
         void Awake()
         {
             _allUpgrades = Resources.LoadAll<UpgradeDataBase>("Upgrades");
+            _allAttackCards = Resources.LoadAll<AttackCardDataBase>("AttackCards");
         }
 
         void OnEnable()
@@ -42,9 +44,15 @@ namespace VS.UI
         private void OnStateChanged(GameState state)
         {
             if (state == GameState.LevelUp)
+            {
+                if (BattleRoomManager.Instance != null)
+                    BattleRoomManager.Instance.StartCardPhase(_roundIndex++);
                 ShowCards();
+            }
             else
+            {
                 HidePanel();
+            }
         }
 
         private void HidePanel()
@@ -61,13 +69,21 @@ namespace VS.UI
             panel.SetActive(true);
             panel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
 
+            if (waitingText != null)
+                waitingText.SetActive(false);
+
             PlayerController player = PlayerController.Instance;
-            _applicableBuffer.Clear();
+
+            _pool.Clear();
             foreach (var u in _allUpgrades)
                 if (u.IsApplicable(player))
-                    _applicableBuffer.Add(u);
+                    _pool.Add(u);
 
-            UpgradeDataBase[] chosen = PickRandom(_applicableBuffer, cards.Length);
+            if (BattleRoomManager.Instance != null)
+                foreach (var a in _allAttackCards)
+                    _pool.Add(a);
+
+            ICardData[] chosen = PickRandom(_pool, cards.Length);
             for (int i = 0; i < cards.Length; i++)
             {
                 if (i < chosen.Length)
@@ -80,68 +96,33 @@ namespace VS.UI
                     cards[i].gameObject.SetActive(false);
                 }
             }
-
-            RequestAIAdvice(player, chosen);
         }
 
-        private void RequestAIAdvice(PlayerController player, UpgradeDataBase[] chosen)
+        private void OnCardSelected(ICardData card)
         {
-            if (adviceText == null || ClaudeAdvisorService.Instance == null) return;
+            foreach (var c in cards)
+                c.SetInteractable(false);
 
-            adviceText.text = "분석 중...";
+            PlayerController player = PlayerController.Instance;
 
-            string context = BuildContext(player, chosen);
-            ClaudeAdvisorService.Instance.RequestAdvice(context, result =>
+            if (card is UpgradeDataBase upgrade)
+                upgrade.Apply(player);
+            else if (card is AttackCardDataBase attackCard)
+                BattleRoomManager.Instance?.SendAttackCard(attackCard.GetAttackType(), attackCard.GetParameters());
+
+            if (BattleRoomManager.Instance != null)
             {
-                if (adviceText == null) return;
-                adviceText.text = result ?? string.Empty;
-            });
+                BattleRoomManager.Instance.ReportCardSelected();
+                if (waitingText != null)
+                    waitingText.SetActive(true);
+            }
+            else
+            {
+                GameManager.Instance?.ResumePlaying();
+            }
         }
 
-        private static string BuildContext(PlayerController player, UpgradeDataBase[] chosen)
-        {
-            var stats = player.GetComponent<PlayerStats>();
-            var inventory = player.GetComponent<WeaponInventory>();
-
-            var sb = new StringBuilder();
-            sb.Append("현재 상황: 레벨 ");
-            sb.Append(PlayerXP.Instance != null ? PlayerXP.Instance.Level : 1);
-            sb.Append(", 생존 ");
-            sb.Append(GameManager.Instance != null ? GameManager.Instance.GetFormattedTime() : "00:00");
-
-            if (stats != null)
-            {
-                sb.Append(", HP ");
-                sb.Append(Mathf.RoundToInt(stats.CurrentHp));
-                sb.Append("/");
-                sb.Append(Mathf.RoundToInt(stats.MaxHp));
-            }
-
-            if (inventory != null && inventory.Weapons.Count > 0)
-            {
-                sb.Append("\n장착 무기: ");
-                for (int i = 0; i < inventory.Weapons.Count; i++)
-                {
-                    if (i > 0) sb.Append(", ");
-                    sb.Append(inventory.Weapons[i].Data.upgradeName);
-                }
-            }
-
-            sb.Append("\n업그레이드 선택지:");
-            for (int i = 0; i < chosen.Length; i++)
-            {
-                sb.Append("\n");
-                sb.Append(i + 1);
-                sb.Append(". ");
-                sb.Append(chosen[i].upgradeName);
-                sb.Append(": ");
-                sb.Append(chosen[i].description);
-            }
-
-            return sb.ToString();
-        }
-
-        private UpgradeDataBase[] PickRandom(List<UpgradeDataBase> pool, int count)
+        private ICardData[] PickRandom(List<ICardData> pool, int count)
         {
             for (int i = pool.Count - 1; i > 0; i--)
             {
@@ -149,19 +130,10 @@ namespace VS.UI
                 (pool[i], pool[j]) = (pool[j], pool[i]);
             }
             int take = Mathf.Min(count, pool.Count);
-            UpgradeDataBase[] result = new UpgradeDataBase[take];
+            ICardData[] result = new ICardData[take];
             for (int i = 0; i < take; i++)
                 result[i] = pool[i];
             return result;
-        }
-
-        private void OnCardSelected(UpgradeDataBase upgrade)
-        {
-            PlayerController player = PlayerController.Instance;
-            if (player != null)
-                upgrade.Apply(player);
-
-            GameManager.Instance?.ResumePlaying();
         }
     }
 }

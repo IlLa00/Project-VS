@@ -14,6 +14,8 @@ namespace VS.Core
 
         public static event Action<GameState> OnStateChanged;
 
+        private int _lastCardRoundTriggered;
+
         void Awake()
         {
             if (Instance != null)
@@ -31,7 +33,16 @@ namespace VS.Core
         void Update()
         {
             if (State == GameState.Playing)
+            {
                 SurvivalTime += Time.deltaTime;
+
+                int roundIndex = (int)(SurvivalTime / 60f);
+                if (roundIndex > _lastCardRoundTriggered)
+                {
+                    _lastCardRoundTriggered = roundIndex;
+                    TriggerLevelUp();
+                }
+            }
         }
 
         public void SetState(GameState newState)
@@ -47,6 +58,7 @@ namespace VS.Core
         public void StartGame()
         {
             SurvivalTime = 0f;
+            _lastCardRoundTriggered = 0;
             SetState(GameState.Playing);
         }
 

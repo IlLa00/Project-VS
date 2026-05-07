@@ -100,5 +100,12 @@ namespace VS.Weapons
             if (_upgradeLevel >= MAX_UPGRADE)
                 _currentCooldown = MAX_UPGRADE_COOLDOWN;
         }
+
+        public void Downgrade()
+        {
+            if (_upgradeLevel <= 0) return;
+            _upgradeLevel--;
+            _boltCount--;
+        }
     }
 }
